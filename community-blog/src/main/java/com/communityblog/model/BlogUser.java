@@ -25,19 +25,20 @@ public class BlogUser {
     @Column(unique = true)
     private String username;
 
-    @Column(unique = true)
-    @Email(message = "Invalid email format")
-    private String email;
-
-
     @Size(min = 4, message = "Password must be at least 4 characters long")
     @Pattern.List({
             @Pattern(regexp = "^(?=.*[0-9]).+$", message = "Password must contain at least one digit"),
             @Pattern(regexp = "^(?=.*[A-Z]).+$", message = "Password must contain at least one uppercase letter")    })
     private String password;
 
+    @Column(unique = true)
+    @Email(message = "Invalid email format")
+    private String email;
+
+    @ElementCollection
     private List<Role> roles;
 
 
-
+    public BlogUser(String username, String password, String email, List<Role> roles) {
+    }
 }
