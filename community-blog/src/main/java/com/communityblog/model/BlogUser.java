@@ -35,10 +35,19 @@ public class BlogUser {
     @Email(message = "Invalid email format")
     private String email;
 
-    @ElementCollection
-    private List<Role> roles;
+    /*@ElementCollection
+    private List<Role> roles;*/
+
+    private String roles;
 
 
-    public BlogUser(String username, String password, String email, List<Role> roles) {
+    /*public BlogUser(String username, String password, String email, List<Role> roles) {
+    }*/
+
+    public BlogUser(String username, String password, String email, String roles) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.roles = roles;
     }
 }
