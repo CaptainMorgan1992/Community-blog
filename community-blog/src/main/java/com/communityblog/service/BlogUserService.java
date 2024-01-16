@@ -21,7 +21,7 @@ public class BlogUserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public RegisterSuccess register(String username, String password, String email ) {
+    public RegisterSuccess register(String username, String password, String email ) throws RegistrationFailureException{
         BlogUser newBlogUser = new BlogUser(username, password, email, "USER");
         String hashPassword =passwordEncoder.encode(password);
         newBlogUser.setPassword(hashPassword);
