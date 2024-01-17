@@ -7,6 +7,7 @@ import com.communityblog.model.Role;
 import com.communityblog.model.User;
 import com.communityblog.repository.RoleRepository;
 import com.communityblog.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -77,5 +78,14 @@ public class UserService {
         userRepository.save(user);
         return new ResponseEntity<String>("Registration successfull!", HttpStatus.OK);
     }
+
+
+    //Todo: This will belong to the Blogpost (Relational Database)
+    public User getBlogUserById(Integer id){
+        return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
+    }
+
+
+
 }
 
