@@ -1,6 +1,8 @@
+
 package com.communityblog.JWT;
 
-import com.communityblog.model.BlogUser;
+
+import com.communityblog.model.User;
 import io.jsonwebtoken.Jwts;
 import lombok.NoArgsConstructor;
 import io.jsonwebtoken.Claims;
@@ -20,12 +22,12 @@ public class JwtTokenProvider {
         this.key = Keys.hmacShaKeyFor(secret.getBytes());
     }
 
-    public String generateToken(BlogUser blogUser) {
-        Long id = blogUser.getId();
-        String username = blogUser.getUsername();
+    public String generateToken(User user) {
+        Integer id = user.getId();
+        String username = user.getUserName();
 
         return Jwts.builder()
-                .setSubject(Long.toString(id))
+                .setSubject(Integer.toString(id))
                 .claim("id", id)
                 .claim("username", username)
                 .signWith(key)

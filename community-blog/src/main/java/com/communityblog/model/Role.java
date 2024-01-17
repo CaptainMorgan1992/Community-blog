@@ -1,9 +1,15 @@
 package com.communityblog.model;
 
+import jakarta.persistence.*;
+import lombok.Data;
 
-public enum Role {
-    USER,
-    ADMIN;
-
+@Entity
+@Table(name="roles")
+@Data
+public class Role {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    private String name;
 
 }

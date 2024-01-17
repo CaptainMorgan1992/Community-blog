@@ -18,7 +18,7 @@ import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 
 
 
-@Configuration
+/*@Configuration
 public class SecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -36,18 +36,28 @@ public class SecurityConfig {
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults());
         return http.build();
-    }
+    }*/
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-        return config.getAuthenticationManager();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
+    @Configuration
+    public class SecurityConfig {
+        @Bean
+        public static PasswordEncoder passwordEncoder() {
+            return new BCryptPasswordEncoder();
+        }
+        @Bean
+        public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+            return configuration.getAuthenticationManager();
+        }
+        @Bean
+        SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+            http.csrf((csrf) -> csrf.disable())
+                    .authorizeHttpRequests((requests)->requests
+                            .requestMatchers("/api/**","/register", "/login").permitAll()
+                            .anyRequest().authenticated())
+                    .formLogin(Customizer.withDefaults())
+                    .httpBasic(Customizer.withDefaults());
+            return http.build();
+        }
 
 }
 
