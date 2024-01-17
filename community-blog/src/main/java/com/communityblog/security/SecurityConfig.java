@@ -52,8 +52,8 @@ public class SecurityConfig {
         SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
             http.csrf((csrf) -> csrf.disable())
                     .authorizeHttpRequests((requests)->requests
-                            .requestMatchers("/api/**","/register", "/login").permitAll()
-                            .anyRequest().authenticated())
+                            .requestMatchers("/api/**","/register", "/login","/blogpost").permitAll()
+                            .requestMatchers("/create-blogpost").authenticated())
                     .formLogin(Customizer.withDefaults())
                     .httpBasic(Customizer.withDefaults());
             return http.build();

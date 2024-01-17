@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import io.jsonwebtoken.security.Keys;
 
 import java.security.Key;
+import java.util.Date;
 import java.util.UUID;
 
 @Component
@@ -26,10 +27,13 @@ public class JwtTokenProvider {
         Integer id = user.getId();
         String username = user.getUserName();
 
+        Date expiration = new Date(System.currentTimeMillis() + 3600000); // 1hour
+
         return Jwts.builder()
                 .setSubject(Integer.toString(id))
                 .claim("id", id)
                 .claim("username", username)
+                .setExpiration(expiration)
                 .signWith(key)
                 .compact();
     }

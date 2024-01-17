@@ -37,11 +37,10 @@ public class UserController {
         this.userService = userService;
     }
 
-
     @PostMapping("/login")
     public ResponseEntity<String> authenticateUser(@RequestBody LoginDto loginDto) {
-        userService.authenticateUser(loginDto);
-        return new ResponseEntity<>("User login successfully!...", HttpStatus.OK);
+        String token = userService.authenticateUser(loginDto);
+        return new ResponseEntity<>("User login successfully!..." + token, HttpStatus.OK);
     }
 
 
