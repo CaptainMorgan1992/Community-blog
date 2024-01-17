@@ -4,6 +4,7 @@ import com.communityblog.JWT.JwtTokenProvider;
 import com.communityblog.dto.LoginDto;
 import com.communityblog.model.User;
 import com.communityblog.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -45,5 +46,14 @@ public class UserService {
         // You may return the token or any other relevant response
         return token;
     }
+
+
+    //Todo: This will belong to the Blogpost (Relational Database)
+    public User getBlogUserById(Integer id){
+        return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
+    }
+
+
+
 }
 
