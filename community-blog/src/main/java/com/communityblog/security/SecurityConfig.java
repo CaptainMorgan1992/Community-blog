@@ -40,25 +40,12 @@ import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
                         .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
                         .authorizeHttpRequests((requests) -> requests
                                 .requestMatchers("/api/**","/register", "/login","/blogpost").permitAll()
-                                .requestMatchers("/create-blogpost").authenticated())
+                                .requestMatchers("/api/blogpost**", "/all", "/{id}", "delete/{id}").permitAll()
+                                .requestMatchers("/create-blogpost", "api/blogpost/create/{id}").authenticated())
                         .formLogin(Customizer.withDefaults())
                         .httpBasic(Customizer.withDefaults());
                 return http.build();
             }
-        /*
-        @Bean
-        SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-            http.csrf((csrf) -> csrf.disable())
-                    .authorizeHttpRequests((requests)->requests
-                            .requestMatchers("/api/**","/register", "/login").permitAll()
-                            .requestMatchers("/api/blogpost**", "/all", "/{id}", "delete/{id}").permitAll()
-                            .requestMatchers("api/blogpost/create/{id}").authenticated())
-                    .formLogin(Customizer.withDefaults())
-                    .httpBasic(Customizer.withDefaults());
-            return http.build();
-        }
-
-         */
 
 }
 
