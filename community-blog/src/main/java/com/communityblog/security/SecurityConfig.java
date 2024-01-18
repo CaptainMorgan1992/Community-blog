@@ -17,27 +17,6 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 
 
-
-/*@Configuration
-public class SecurityConfig {
-    @Bean
-    SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        CsrfTokenRequestAttributeHandler requestHandler = new CsrfTokenRequestAttributeHandler();
-        requestHandler.setCsrfRequestAttributeName("_csrf");
-        http.securityContext((context) -> context.requireExplicitSave(false))
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
-                .csrf((csrf) -> csrf.csrfTokenRequestHandler(requestHandler)
-                        .ignoringRequestMatchers("/register", "/hello")
-                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
-                .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
-                .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/hello", "/register").permitAll()
-                        .anyRequest().authenticated())
-                .formLogin(Customizer.withDefaults())
-                .httpBasic(Customizer.withDefaults());
-        return http.build();
-    }*/
-
     @Configuration
     public class SecurityConfig {
         @Bean
@@ -48,6 +27,25 @@ public class SecurityConfig {
         public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
             return configuration.getAuthenticationManager();
         }
+
+            @Bean
+            SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+                CsrfTokenRequestAttributeHandler requestHandler = new CsrfTokenRequestAttributeHandler();
+                requestHandler.setCsrfRequestAttributeName("_csrf");
+                http.securityContext((context) -> context.requireExplicitSave(false))
+                        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
+                        .csrf((csrf) -> csrf.csrfTokenRequestHandler(requestHandler)
+                                .ignoringRequestMatchers("/register", "/hello", "/api", "/api/**")
+                                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
+                        .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
+                        .authorizeHttpRequests((requests) -> requests
+                                .requestMatchers("/api/**","/register", "/login","/blogpost").permitAll()
+                                .requestMatchers("/create-blogpost").authenticated())
+                        .formLogin(Customizer.withDefaults())
+                        .httpBasic(Customizer.withDefaults());
+                return http.build();
+            }
+        /*
         @Bean
         SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
             http.csrf((csrf) -> csrf.disable())
@@ -58,6 +56,8 @@ public class SecurityConfig {
                     .httpBasic(Customizer.withDefaults());
             return http.build();
         }
+
+         */
 
 }
 

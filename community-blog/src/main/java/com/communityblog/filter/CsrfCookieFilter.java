@@ -10,6 +10,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 public class CsrfCookieFilter extends OncePerRequestFilter {
+    /*
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         CsrfToken csrfToken = (CsrfToken)request.getAttribute(CsrfToken.class.getName());
@@ -18,4 +19,18 @@ public class CsrfCookieFilter extends OncePerRequestFilter {
         }
         filterChain.doFilter(request, response);
     }
+
+     */
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        CsrfToken csrfToken = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
+        if (csrfToken != null && csrfToken.getHeaderName() != null) {
+            if (!request.getServletPath().equals("/logout")) {
+                response.setHeader(csrfToken.getHeaderName(), csrfToken.getToken());
+            }
+        }
+        filterChain.doFilter(request, response);
+    }
+
+
 }
