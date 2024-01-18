@@ -1,6 +1,5 @@
 package com.communityblog.service;
 
-import com.communityblog.JWT.JwtTokenProvider;
 import com.communityblog.dto.LoginDto;
 import com.communityblog.dto.SignUpDto;
 import com.communityblog.model.Role;
@@ -24,38 +23,27 @@ import java.util.Collections;
 @Service
 public class UserService {
     private final AuthenticationManager authenticationManager;
-    private final JwtTokenProvider jwtTokenProvider;
     private final HttpSession httpSession;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
 
     @Autowired
-    public UserService(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, HttpSession httpSession, UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
+    public UserService(AuthenticationManager authenticationManager, HttpSession httpSession, UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
         this.authenticationManager = authenticationManager;
-        this.jwtTokenProvider = jwtTokenProvider;
         this.httpSession = httpSession;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
     }
 
-    public String authenticateUser(LoginDto loginDto) {
+
+
+    public void authenticateUser(LoginDto loginDto) {
 
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        User user = userRepository.findByUserName(loginDto.getUsername());
-
-        // Generate JWT Token
-        String token = jwtTokenProvider.generateToken(user);
-
-        // Store token in session
-        httpSession.setAttribute("JWT_TOKEN", token);
-
-        // You may return the token or any other relevant response
-        return token;
     }
 
     public ResponseEntity<String> registerUser(SignUpDto signUpDto) {

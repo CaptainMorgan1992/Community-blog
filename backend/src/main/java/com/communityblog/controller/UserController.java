@@ -1,4 +1,5 @@
 package com.communityblog.controller;
+
 import com.communityblog.dto.LoginDto;
 import com.communityblog.dto.SignUpDto;
 import com.communityblog.model.Role;
@@ -31,6 +32,7 @@ public class UserController {
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
     private UserService userService;
+
     @Autowired
     public UserController(AuthenticationManager authenticationManager, UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, UserService userService) {
         this.authenticationManager = authenticationManager;
@@ -42,39 +44,21 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<String> authenticateUser(@RequestBody LoginDto loginDto) {
-        String token = userService.authenticateUser(loginDto);
-        return new ResponseEntity<>("User login successfully!..." + token, HttpStatus.OK);
+        userService.authenticateUser(loginDto);
+        return new ResponseEntity<>("User login successfully!...", HttpStatus.OK);
     }
 
 
- @PostMapping("/logout")
- public ResponseEntity<String> logoutUser(HttpServletRequest request, HttpSession session) {
+    @PostMapping("/logout")
+    public ResponseEntity<String> logoutUser(HttpServletRequest request, HttpSession session) {
 
-        /*
-        SecurityContextHolder.clearContext();
-
-        // Remove CSRF token from the session
-        CsrfToken csrfToken = (CsrfToken) session.getAttribute(CsrfToken.class.getName());
-        if (csrfToken != null) {
-            session.removeAttribute(CsrfToken.class.getName());
-        }
-
-        session.removeAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY);
-
-        HttpSession httpSession = request.getSession(false);
-        if (httpSession != null) {
-            httpSession.invalidate();
-        }*/
-        session.removeAttribute("JWT_TOKEN");
 
         return new ResponseEntity<>("User logout successfully!...", HttpStatus.OK);
     }
 
 
-
-
     @GetMapping("/create-blogpost")
-    public ResponseEntity<String> hello(){
+    public ResponseEntity<String> hello() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
 
@@ -88,8 +72,8 @@ public class UserController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@Valid @RequestBody SignUpDto signUpDto){
-            return userService.registerUser(signUpDto);
+    public ResponseEntity<String> registerUser(@Valid @RequestBody SignUpDto signUpDto) {
+        return userService.registerUser(signUpDto);
 
     }
 }

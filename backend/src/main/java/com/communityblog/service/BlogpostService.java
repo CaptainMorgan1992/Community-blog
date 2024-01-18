@@ -1,6 +1,5 @@
 package com.communityblog.service;
 
-import com.communityblog.JWT.JwtTokenProvider;
 import com.communityblog.model.Blogpost;
 import com.communityblog.model.User;
 import com.communityblog.repository.BlogpostRepository;
@@ -9,6 +8,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -16,27 +16,22 @@ public class BlogpostService {
 
     public final BlogpostRepository blogPostRepository;
     public final UserService userService;
-    private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
 
     @Autowired
-    public BlogpostService(
-            BlogpostRepository blogPostRepository,
-            UserService userService,
-            JwtTokenProvider jwtTokenProvider,
-            UserRepository userRepository) {
+    public BlogpostService(BlogpostRepository blogPostRepository, UserService userService, UserRepository userRepository) {
         this.blogPostRepository = blogPostRepository;
         this.userService = userService;
-        this.jwtTokenProvider = jwtTokenProvider;
         this.userRepository = userRepository;
     }
 
 
 
-    public void createBlogPost(Blogpost blogPost, String token) {
-        int userId = jwtTokenProvider.getTokenId(token);
-        User user = userRepository.findUserById(userId);
-        //User user = userService.getBlogUserById(userId);
+    public void createBlogPost(Blogpost blogPost, Principal principal) {
+        String username = principal.getName();
+        System.out.println(principal.getName());
+        User user = userRepository.findByUserName(username);
+        System.out.println(user);
         blogPost.setAuthor(user);
         blogPostRepository.save(blogPost);
     }
