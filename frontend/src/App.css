@@ -1,0 +1,20 @@
+.header {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+}
+
+.blog-title {
+    margin: 0;
+}
+
+.nav {
+    margin-top: 10px;
+}
+
+.nav-link {
+    color: #fff;
+    margin-right: 10px;
+    text-decoration: none;
+}

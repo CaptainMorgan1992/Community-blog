@@ -49,8 +49,15 @@ public class UserController {
     @PostMapping("/logout")
     public ResponseEntity<String> logoutUser(HttpServletRequest request, HttpSession session) {
         SecurityContextHolder.clearContext();
-        session.removeAttribute(CsrfToken.class.getName()); // Remove CSRF token
+
+        // Remove CSRF token from the session
+        CsrfToken csrfToken = (CsrfToken) session.getAttribute(CsrfToken.class.getName());
+        if (csrfToken != null) {
+            session.removeAttribute(CsrfToken.class.getName());
+        }
+
         session.removeAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY);
+
         HttpSession httpSession = request.getSession(false);
         if (httpSession != null) {
             httpSession.invalidate();
