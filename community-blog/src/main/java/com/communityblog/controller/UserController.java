@@ -47,26 +47,22 @@ public class UserController {
     }
 
 
-/*    @PostMapping("/logout")
+ @PostMapping("/logout")
+ public ResponseEntity<String> logoutUser(HttpServletRequest request, HttpSession session) {
 
-    public ResponseEntity<String> logoutUser(HttpServletRequest request, HttpSession session) {
-
+        /*
         SecurityContextHolder.clearContext();
         session.removeAttribute(CsrfToken.class.getName()); // Remove CSRF token
         session.removeAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY);
         HttpSession httpSession = request.getSession(false);
         if (httpSession != null) {
             httpSession.invalidate();
-        }
+        }*/
         session.removeAttribute("JWT_TOKEN");
-
-
-
-
 
         return new ResponseEntity<>("User logout successfully!...", HttpStatus.OK);
     }
- */
+
 
 
 

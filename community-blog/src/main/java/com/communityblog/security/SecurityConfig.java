@@ -57,9 +57,9 @@ import java.util.Collections;
                                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                         .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
                         .authorizeHttpRequests((requests) -> requests
-                                .requestMatchers("/api/**", "/register", "/login", "/blogpost").permitAll()
-                                .requestMatchers("/api/blogpost**", "/all", "/{id}", "delete/{id}").permitAll()
-                                .requestMatchers("/create-blogpost", "api/blogpost/create/{id}").authenticated())
+                                .requestMatchers("/api/register", "/api/login", "/api/blogpost").permitAll()
+                                .requestMatchers("/api/blogpost/all", "/api/blogpost/{id}", "/api/blogpost/delete/{id}").permitAll()
+                                .requestMatchers("/create-blogpost", "/api/blogpost/create").authenticated())
                         .formLogin(Customizer.withDefaults())
                         .httpBasic(Customizer.withDefaults())
 
