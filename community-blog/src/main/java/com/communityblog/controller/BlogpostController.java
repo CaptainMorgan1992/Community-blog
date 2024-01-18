@@ -30,11 +30,14 @@ public class BlogpostController {
     public ResponseEntity<String> createBlogpost(@RequestBody Blogpost blogpost, @RequestHeader("Authorization") String token) {
 
         boolean isValid = jwtTokenProvider.validateToken(token);
-        if(isValid) {
+        boolean isTokenInvalidated = jwtTokenProvider.isTokenInvalidated(token);
+        System.out.println(isTokenInvalidated);
+        if (isValid && !isTokenInvalidated) {
             blogpostService.createBlogPost(blogpost, token);
             return new ResponseEntity<>("Blogpost created", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("Invalid token", HttpStatus.UNAUTHORIZED);
         }
-        return new ResponseEntity<>("Invalid token", HttpStatus.UNAUTHORIZED);
     }
 
     @GetMapping("/all")

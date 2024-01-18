@@ -41,33 +41,27 @@ public class UserService {
     }
 
     public String authenticateUser(LoginDto loginDto) {
-
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         User user = userRepository.findByUserName(loginDto.getUsername());
-
-        // Generate JWT Token
         String token = jwtTokenProvider.generateToken(user);
 
-        // Store token in session
         httpSession.setAttribute("JWT_TOKEN", token);
 
-        // You may return the token or any other relevant response
         return token;
     }
 
     public ResponseEntity<String> registerUser(SignUpDto signUpDto) {
-        // checking for username exists in a database
         if(userRepository.existsByUserName(signUpDto.getUsername())){
             return new ResponseEntity<>("Username is already exist!", HttpStatus.BAD_REQUEST);
         }
-        // checking for email exists in a database
+
         if(userRepository.existsByEmail(signUpDto.getEmail())){
             return new ResponseEntity<>("Email is already exist!", HttpStatus.BAD_REQUEST);
         }
-        // creating user object
+
         User user = new User();
         user.setName(signUpDto.getName());
         user.setUserName(signUpDto.getUsername());

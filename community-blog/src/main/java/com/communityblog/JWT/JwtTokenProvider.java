@@ -11,12 +11,15 @@ import io.jsonwebtoken.security.Keys;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Component
 public class JwtTokenProvider {
 
     private final Key key;
+    private final Set<String> invalidatedTokens = new HashSet<>();
 
     public JwtTokenProvider() {
         String secret = UUID.randomUUID().toString();
@@ -63,4 +66,13 @@ public class JwtTokenProvider {
         }
     }
 
+    //Osäker på dessa metoder
+    public void invalidateToken(String token) {
+        invalidatedTokens.add(String.valueOf(getTokenId(token)));
+        System.out.println("Token invalidated: " + token);
+    }
+
+    public boolean isTokenInvalidated(String token) {
+        return invalidatedTokens.contains(String.valueOf(getTokenId(token)));
+    }
 }
