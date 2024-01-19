@@ -1,7 +1,6 @@
 package com.communityblog.controller;
 
 
-import com.communityblog.JWT.JwtTokenProvider;
 import com.communityblog.model.Blogpost;
 import com.communityblog.service.BlogpostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -17,24 +17,17 @@ public class BlogpostController {
 
     public final BlogpostService blogpostService;
 
-    public final JwtTokenProvider jwtTokenProvider;
-
     @Autowired
-    public BlogpostController(BlogpostService blogpostService, JwtTokenProvider jwtTokenProvider) {
+    public BlogpostController(BlogpostService blogpostService) {
         this.blogpostService = blogpostService;
-        this.jwtTokenProvider = jwtTokenProvider;
     }
 
 
     @PostMapping("/create")
-    public ResponseEntity<String> createBlogpost(@RequestBody Blogpost blogpost, @RequestHeader("Authorization") String token) {
-
-        boolean isValid = jwtTokenProvider.validateToken(token);
-        if(isValid) {
-            blogpostService.createBlogPost(blogpost, token);
+    public ResponseEntity<String> createBlogpost(@RequestBody Blogpost blogpost, Principal principal) {
+            blogpostService.createBlogPost(blogpost, principal);
             return new ResponseEntity<>("Blogpost created", HttpStatus.CREATED);
-        }
-        return new ResponseEntity<>("Invalid token", HttpStatus.UNAUTHORIZED);
+
     }
 
     @GetMapping("/all")
