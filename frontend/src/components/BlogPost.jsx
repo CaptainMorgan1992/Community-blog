@@ -1,9 +1,17 @@
+import GlobalContext from "../GlobalContext.jsx";
+import {useContext} from "react";
+
 export default function BlogPost () {
+    const {blogPosts,setBlogPosts} = useContext(GlobalContext)
     return<>
         <div className={"blogpost"}>
-            <h3 className={"content"}>Blogpost Title </h3>
-            <p className={"content"}>I went to Paris and ate a baguette. I regret it.</p>
-            <p className={"content"}>Author: Lina</p>
+            {blogPosts.map((post, index) => (
+                <div key={index}>
+                    <h2>{post.title}</h2>
+                    <p>{post.content}</p>
+                    <p>Author: {post.author}</p>
+                </div>
+            ))}
         </div>
     </>
 

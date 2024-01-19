@@ -8,14 +8,15 @@ import "./styles/Navbar.css"
 import "./styles/RegisterPage.css"
 import "./styles/errorBoundary.css"
 import "./App.css"
+import {GlobalProvider} from "./GlobalContext.jsx";
 
 function App() {
   return (
-      <div>
+      <GlobalProvider>
         <Header/>
         <Outlet/>
         <Footer/>
-      </div>
+      </GlobalProvider>
 
   );
 }
