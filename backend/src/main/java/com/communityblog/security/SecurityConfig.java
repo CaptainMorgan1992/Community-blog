@@ -42,10 +42,19 @@ public class SecurityConfig {
                     return config;
                 }))
                 .csrf((csrf) -> csrf
-                       .ignoringRequestMatchers("/api/register", "/api/hello", "/api/login", "/api/home", "/api/blogpost", "/api/blogpost/create", "/api/logout")
+                       .ignoringRequestMatchers(
+                               "/api/register",
+                               "/api/hello",
+                               "/api/login",
+                               "/api/home",
+                               "/api/blogpost",
+                               "/api/blogpost/{id}",
+                               "/api/blogpost/create",
+                               "/api/logout")
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/api/blogpost/all",
+                        .requestMatchers(
+                                "/api/blogpost/all",
                                 "/api/blogpost/{id}",
                                 "/api/blogpost/delete/{id}",
                                 "/api/register",
