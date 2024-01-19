@@ -6,10 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="34025d05-3f63-4101-86a8-49086d9d3473" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/communityblog/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/communityblog/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/GlobalContext.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/GlobalContext.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/BlogPost.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/BlogPost.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MyPostsPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MyPostsPage.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +43,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1705648720150</updated>
-      <workItem from="1705648721340" duration="5747000" />
+      <workItem from="1705648721340" duration="7204000" />
     </task>
     <servers />
   </component>
