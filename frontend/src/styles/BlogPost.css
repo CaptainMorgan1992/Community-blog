@@ -1,0 +1,13 @@
+.blogpost{
+    display: flex;
+    flex-direction: column;
+    border:2px solid black;
+    align-items: flex-start;
+    margin: 0 0 10px 10px;
+
+}
+
+.content{
+    margin-left: 10px;
+
+}

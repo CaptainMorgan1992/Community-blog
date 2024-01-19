@@ -7,14 +7,18 @@ import {
     createBrowserRouter,
     createRoutesFromElements
 } from "react-router-dom";
-import './App.css'
 import HomePage from "./pages/HomePage.jsx";
 import ErrorBoundary from "./pages/errorBoundary.jsx";
+import RegisterPage from "./pages/RegisterPage.jsx";
+import MyPostsPage from "./pages/MyPostsPage.jsx";
+
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<App/>} errorElement={<ErrorBoundary/>}>
-            <Route index element={<HomePage/>}/>
+            <Route path="/" index element={<HomePage/>}/>
+            <Route path={'register'} element={<RegisterPage/>}/>
+            <Route path={'myPosts'} element={<MyPostsPage/>}/>
         </Route>
     )
 )
