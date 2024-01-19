@@ -43,7 +43,18 @@ public class BlogpostService {
         return blogPostRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Blogpost not found"));
     }
 
-    public void deleteBlogpost(Integer id) {
+    public void deleteBlogpost(Integer id, Principal principal) {
+        User user = userRepository.findByUserName(principal.getName());
+        Blogpost blogpost = blogPostRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Blogpost not found"));
+
+        if (!blogpost.getAuthor().equals(user)) {
+            throw new SecurityException("You are not authorized to delete this blog post");
+        }
+
         blogPostRepository.deleteById(id);
     }
+
+
+
+
 }

@@ -42,21 +42,36 @@ public class SecurityConfig {
                     return config;
                 }))
                 .csrf((csrf) -> csrf
-                       .ignoringRequestMatchers("/api/register", "/api/hello", "/api/login", "/api/home", "/api/blogpost", "/api/blogpost/create", "/api/logout")
+                        .ignoringRequestMatchers("/api/register", "/api/hello", "/api/login", "/api/home", "/api/blogpost", "/api/blogpost/create", "/api/logout", "/api/blogpost/delete/{id}")
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .authorizeHttpRequests((requests) -> requests
+                        .requestMatchers("/api/blogpost/create").hasRole("USER")
+                        .requestMatchers("/api/blogpost/delete/{id}").hasRole("USER")
                         .requestMatchers("/api/blogpost/all",
                                 "/api/blogpost/{id}",
                                 "/api/blogpost/delete/{id}",
                                 "/api/register",
                                 "/api/login",
                                 "/api/blogpost"
-                                ).permitAll()
-                        .requestMatchers( "/api/blogpost/create").hasRole("USER").anyRequest().authenticated())
+                        ).permitAll()
+                        .anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults());
         return http.build();
     }
+    /*
+    * @Bean
+
+                .authorizeHttpRequests((requests) -> requests
+                        .requestMatchers("/myAccount").hasRole("USER")
+                        .requestMatchers("/myBalance").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/myLoans").hasRole("USER")
+                        .requestMatchers("/myCards").hasRole("USER")
+                        .requestMatchers("/user").authenticated()
+                        .requestMatchers("/notices", "/contact", "/register").permitAll())
+                .formLogin(Customizer.withDefaults())
+                .httpBasic(Customizer.withDefaults());
+    * */
 
 }
 

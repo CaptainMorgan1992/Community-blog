@@ -42,8 +42,8 @@ public class BlogpostController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<HttpStatus> deleteBlogpost(@PathVariable Integer id) {
-        blogpostService.deleteBlogpost(id);
+    public ResponseEntity<HttpStatus> deleteBlogpost(@PathVariable Integer id, Principal principal) {
+        blogpostService.deleteBlogpost(id, principal);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
