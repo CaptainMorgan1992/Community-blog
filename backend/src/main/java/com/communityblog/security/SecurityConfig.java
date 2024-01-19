@@ -52,7 +52,7 @@ public class SecurityConfig {
                                 "/api/login",
                                 "/api/blogpost"
                                 ).permitAll()
-                        .requestMatchers( "/api/blogpost/create").hasRole("USER").anyRequest().authenticated())
+                        .requestMatchers( "/api/blogpost/create", "/api/blogpost/delete/{id}").hasRole("USER").anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults());
         return http.build();
