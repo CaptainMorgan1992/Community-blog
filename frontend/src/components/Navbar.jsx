@@ -9,7 +9,9 @@ export default function Navbar() {
         <Link to={'myPosts'}>
             <button>My posts</button>
         </Link>
-
+        <Link to={'login'}>
+            <button>Login</button>
+        </Link>
 
         <button>Create post</button>
         <button>My profile</button>

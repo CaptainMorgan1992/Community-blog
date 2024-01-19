@@ -11,6 +11,7 @@ import HomePage from "./pages/HomePage.jsx";
 import ErrorBoundary from "./pages/errorBoundary.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
 import MyPostsPage from "./pages/MyPostsPage.jsx";
+import LoginPage from "./pages/LoginPage.jsx"
 
 
 const router = createBrowserRouter(
@@ -19,6 +20,7 @@ const router = createBrowserRouter(
             <Route path="/" index element={<HomePage/>}/>
             <Route path={'register'} element={<RegisterPage/>}/>
             <Route path={'myPosts'} element={<MyPostsPage/>}/>
+            <Route path={'login'} element={<LoginPage/>}/>
         </Route>
     )
 )

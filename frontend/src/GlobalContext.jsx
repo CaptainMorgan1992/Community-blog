@@ -8,12 +8,17 @@ export const GlobalProvider = ({children}) =>  {
 
     //useStates for all variables
     const [blogPosts, setBlogPosts] = useState([])
+    const [validateResponse, setValidateResponse] = useState(false)
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
     //imports from database
 
     useEffect(() => {
+        setValidateResponse(validateResponse);
         setBlogPosts(blogPosts)
         void loadBlogPosts()
-    }, [blogPosts]);
+    }, [blogPosts, validateResponse]);
+
+
 
  /*   const loadBlogPosts = async () => {
         await fetch("http://localhost:8080/api/blogpost/all")
@@ -23,14 +28,31 @@ export const GlobalProvider = ({children}) =>  {
 
     }*/
 
+    const submitLogin = async (username, password) => {
+        //const csrfRes = await fetch("http://localhost:8080/csrf", {credentials: "include"});
+       // const token = await csrfRes.json()
+        try {
+        const response = await fetch("http://localhost:8080/api/login", {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+                //'X-CSRF-TOKEN': token.token},
+            body: JSON.stringify({username, password})
+        })
+        setValidateResponse(response.ok);
+        setIsLoggedIn(true)
+        console.log(response.ok) } catch (error) {
+            console.error(error);
+        }
+    }
+
     const loadBlogPosts = async () => {
-        const csrfRes = await fetch("http://localhost:8080/csrf", {credentials: "include"});
-        const token = await csrfRes.json()
+       // const csrfRes = await fetch("http://localhost:8080/csrf", {credentials: "include"});
+      //  const token = await csrfRes.json()
         const requestOptions = {
             method: 'GET', // or any other HTTP method you want to use
             headers: {
-                'Content-Type': 'application/json', // Example header, adjust as needed
-                'X-CSRF-TOKEN': token.token
+                'Content-Type': 'application/json' // Example header, adjust as needed
+               // 'X-CSRF-TOKEN': token.token
             },
         };
 
@@ -52,7 +74,11 @@ export const GlobalProvider = ({children}) =>  {
         <GlobalContext.Provider
             value={{
                 blogPosts,
-                setBlogPosts
+                setBlogPosts,
+                submitLogin,
+                isLoggedIn,
+                setIsLoggedIn,
+                validateResponse
             }}
         >
 
