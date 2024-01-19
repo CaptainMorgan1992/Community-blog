@@ -10,12 +10,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.logout.HeaderWriterLogoutHandler;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
-import org.springframework.security.web.csrf.CsrfTokenRequestHandler;
-import org.springframework.security.web.header.writers.ClearSiteDataHeaderWriter;
 import org.springframework.web.cors.CorsConfiguration;
 
 import java.util.Collections;
@@ -46,14 +41,18 @@ public class SecurityConfig {
                     config.setMaxAge(3600L);
                     return config;
                 }))
-                .csrf((csrf) -> csrf.csrfTokenRequestHandler()
-                        //.ignoringRequestMatchers("/register", "/hello", "/api", "/api/**")
+                .csrf((csrf) -> csrf
+                       .ignoringRequestMatchers("/api/register", "/api/hello", "/api/login", "/api/home", "/api/blogpost", "/api/blogpost/create", "/api/logout")
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
-                .addFilterAfter(BasicAuthenticationFilter.class)
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/api/register", "/api/login", "/api/blogpost").permitAll()
-                        .requestMatchers("/api/blogpost/all", "/api/blogpost/{id}", "/api/blogpost/delete/{id}").permitAll()
-                        .requestMatchers("/create-blogpost", "/api/blogpost/create").authenticated())
+                        .requestMatchers("/api/blogpost/all",
+                                "/api/blogpost/{id}",
+                                "/api/blogpost/delete/{id}",
+                                "/api/register",
+                                "/api/login",
+                                "/api/blogpost"
+                                ).permitAll()
+                        .requestMatchers( "/api/blogpost/create").hasRole("USER").anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults());
         return http.build();

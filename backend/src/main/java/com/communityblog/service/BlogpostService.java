@@ -26,7 +26,6 @@ public class BlogpostService {
     }
 
 
-
     public void createBlogPost(Blogpost blogPost, Principal principal) {
         String username = principal.getName();
         System.out.println(principal.getName());

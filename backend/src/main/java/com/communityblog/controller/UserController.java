@@ -51,23 +51,7 @@ public class UserController {
 
     @PostMapping("/logout")
     public ResponseEntity<String> logoutUser(HttpServletRequest request, HttpSession session) {
-
-
         return new ResponseEntity<>("User logout successfully!...", HttpStatus.OK);
-    }
-
-
-    @GetMapping("/create-blogpost")
-    public ResponseEntity<String> hello() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !authentication.isAuthenticated()) {
-
-            return new ResponseEntity<>("You have to login first!", HttpStatus.UNAUTHORIZED);
-        }
-
-        // You can perform additional authorization checks if needed
-
-        return new ResponseEntity<>("You can create a blogpost now!", HttpStatus.OK);
     }
 
 

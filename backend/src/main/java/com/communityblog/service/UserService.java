@@ -40,9 +40,9 @@ public class UserService {
 
 
     public void authenticateUser(LoginDto loginDto) {
-
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword()));
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 

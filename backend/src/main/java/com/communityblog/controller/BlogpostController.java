@@ -23,11 +23,8 @@ public class BlogpostController {
     }
 
 
-
-
     @PostMapping("/create")
     public ResponseEntity<String> createBlogpost(@RequestBody Blogpost blogpost, Principal principal) {
-
             blogpostService.createBlogPost(blogpost, principal);
             return new ResponseEntity<>("Blogpost created", HttpStatus.CREATED);
 
