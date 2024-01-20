@@ -1,4 +1,4 @@
-import {createContext, useEffect, useState} from "react";
+import {createContext, useCallback, useEffect, useState} from "react";
 
 
 const GlobalContext = createContext(null);
@@ -8,6 +8,7 @@ export const GlobalProvider = ({children}) =>  {
 
     //useStates for all variables
     const [blogPosts, setBlogPosts] = useState([])
+    const [individualPost, setIndividualPost] = useState(null);
     //imports from database
 
     useEffect(() => {
@@ -48,11 +49,41 @@ export const GlobalProvider = ({children}) =>  {
         }
     };
 
+    const loadIndividualPost = useCallback(async (postId) => {
+        const csrfRes = await fetch("http://localhost:8080/csrf", { credentials: "include" });
+        const token = await csrfRes.json();
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': token.token
+            },
+        };
+
+        try {
+            const response = await fetch(`http://localhost:8080/api/blogpost/${postId}`, requestOptions);
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            setIndividualPost(result);
+        } catch (error) {
+            console.error(error);
+        }
+    }, []);
+
+
+
     return (
         <GlobalContext.Provider
             value={{
                 blogPosts,
-                setBlogPosts
+                setBlogPosts,
+                individualPost,
+                setIndividualPost,
+                loadIndividualPost,
             }}
         >
 

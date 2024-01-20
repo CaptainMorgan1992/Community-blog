@@ -2,7 +2,7 @@ import GlobalContext from "../GlobalContext.jsx";
 import {useContext} from "react";
 import {Link} from "react-router-dom";
 
-export default function AllBlogPosts () {
+export default function AllBlogPostsPage () {
     const {blogPosts} = useContext(GlobalContext)
     return<>
         <div className={"blogpost"}>
