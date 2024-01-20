@@ -50,7 +50,8 @@ public class SecurityConfig {
                                "/api/blogpost",
                                "/api/blogpost/{id}",
                                "/api/blogpost/create",
-                               "/api/logout")
+                               "/api/logout",
+                               "/csrf")
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(
