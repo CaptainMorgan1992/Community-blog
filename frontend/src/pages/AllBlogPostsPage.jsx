@@ -1,8 +1,9 @@
 import GlobalContext from "../GlobalContext.jsx";
 import {useContext, useState} from "react";
 import {Link} from "react-router-dom";
+
 export default function AllBlogPostsPage() {
-    const { blogPosts } = useContext(GlobalContext);
+    const {blogPosts} = useContext(GlobalContext);
     const [searchTerm, setSearchTerm] = useState("");
 
     const filteredBlogPosts = blogPosts.filter((post) =>
@@ -21,15 +22,27 @@ export default function AllBlogPostsPage() {
             </div>
             <div className={"blogpost"}>
                 {filteredBlogPosts.map((post) => (
-                    <div key={post.id}>
+                    <div className="post" key={post.id}>
                         <Link to={`/blog/${post.id}`}>
                             <h2>{post.title}</h2>
                         </Link>
-                        <p className={"content"}>{post.content}</p>
-                        <p>Author: {post.author}</p>
+                        <p className={"content"}>
+                            {truncateContent(post.content, 100)} {/* Limit to 100 characters */}
+                        </p>
+                        <p className="author">
+                            Author: {post.author} |{" "}
+                            <Link to={`/blog/${post.id}`}><span className="readMore">Read more</span></Link>
+                        </p>
                     </div>
                 ))}
             </div>
         </>
     );
+}
+
+function truncateContent(content, maxLength) {
+    if (content.length > maxLength) {
+        return content.substring(0, maxLength) + " ...";
+    }
+    return content;
 }
