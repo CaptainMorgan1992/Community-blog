@@ -1,16 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Moirai+One&family=Shadows+Into+Light&display=swap');
 
 .homepage-container{
-
     height: 100vh;
-
+    background-image: url("../images/homePage.jpg");
     background-size: cover;
     background-position: center;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: rgba(128, 128, 128, 0.35);
-    background-image: url("../images/homePage.jpg");
+
 }
 
 .homepage-container h2 {

@@ -1,13 +1,35 @@
 .blogpost{
     display: flex;
+    align-items: center;
     flex-direction: column;
-    border:2px solid black;
-    align-items: flex-start;
-    margin: 0 0 10px 10px;
-
+    background-color: #f8e9c7;
+    min-height: 80vh;
 }
 
 .content{
     margin-left: 10px;
+    max-width: 100vh;
 
+}
+
+.searchBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0A2F32;
+    padding-bottom: 20px;
+}
+
+.searchBar input {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.searchBar input:focus {
+    outline: none;
+    border-color: #4caf8b; /* Add your desired focus color */
+    box-shadow: 0 0 5px rgba(216, 226, 216, 0.5); /* Add your desired focus shadow */
 }
