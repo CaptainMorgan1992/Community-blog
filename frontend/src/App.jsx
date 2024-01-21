@@ -8,6 +8,7 @@ import "./styles/Navbar.css"
 import "./styles/RegisterPage.css"
 import "./styles/errorBoundary.css"
 import "./App.css"
+import "./styles/HomePage.css"
 import {GlobalProvider} from "./GlobalContext.jsx";
 
 function App() {

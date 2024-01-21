@@ -1,5 +1,9 @@
 #footer {
-    background-color: chocolate;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(14, 66, 71);
     padding-bottom: 20px;
     padding-top: 20px;
+    color: white;
 }
