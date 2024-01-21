@@ -8,7 +8,6 @@ const IndividualPostPage = () => {
     const { individualPost, loadIndividualPost } = useContext(GlobalContext);
 
     useEffect(() => {
-        console.log("!hey")
         loadIndividualPost(id)
             .catch((error) => console.error('Error loading individual post:', error));
     }, [id, loadIndividualPost]);
@@ -18,9 +17,13 @@ const IndividualPostPage = () => {
     }
 
     return (
-        <div>
+        <div className="postPage-container">
+
+        <div className="post">
             <h2>{individualPost.title}</h2>
-            <p>{individualPost.content}</p>
+            <p className="content">{individualPost.content}</p>
+            <p className="author">{individualPost.author} Author:</p>
+        </div>
         </div>
     );
 };
