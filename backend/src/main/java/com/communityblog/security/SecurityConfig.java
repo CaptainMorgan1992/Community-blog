@@ -41,6 +41,7 @@ public class SecurityConfig {
                     config.setMaxAge(3600L);
                     return config;
                 }))
+
                 .csrf((csrf) -> csrf
                        .ignoringRequestMatchers(
                                "/api/register",
@@ -50,6 +51,8 @@ public class SecurityConfig {
                                "/api/blogpost",
                                "/api/blogpost/{id}",
                                "/api/blogpost/create",
+
+                               "/api/blogpost/delete/{id}")
                                "/api/logout",
                                "/csrf")
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
@@ -60,7 +63,8 @@ public class SecurityConfig {
                                 "/api/blogpost/delete/{id}",
                                 "/api/register",
                                 "/api/login",
-                                "/api/blogpost"
+                                "/api/blogpost",
+                                "/api/blogpost/delete/{id}"
                                 ).permitAll()
                         .requestMatchers( "/api/blogpost/create", "/api/blogpost/delete/{id}").hasRole("USER").anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults())
