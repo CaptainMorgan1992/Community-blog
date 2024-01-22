@@ -30,13 +30,17 @@ public class BlogpostService {
 
     public void createBlogPost(BlogpostDto blogPostDto, Principal principal) {
         String username = principal.getName();
+        User user = userRepository.findByUserName(username);
         Blogpost blogPost = new Blogpost();
         blogPost.setTitle(blogPostDto.getTitle());
         blogPost.setContent(blogPostDto.getContent());
         blogPost.setDate(blogPostDto.getDate());
-        //blogPost.setBlogpostUsername(blogPostDto.getAuthor(blogPostDto.setAuthor(username));
+        blogPost.setAuthor(user);
+        blogPost.setBlogpostUsername(username);
 
         blogPostRepository.save(blogPost);
+        blogPostDto.setAuthor(username);
+        blogPost.setBlogpostUsername(blogPostDto.getAuthor());
     }
 
 
