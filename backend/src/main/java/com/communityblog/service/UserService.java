@@ -47,13 +47,14 @@ public class UserService {
     }
 
     public ResponseEntity<String> registerUser(SignUpDto signUpDto) {
+
         // checking for username exists in a database
         if(userRepository.existsByUserName(signUpDto.getUsername())){
-            return new ResponseEntity<>("Username is already exist!", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Username already exists!", HttpStatus.BAD_REQUEST);
         }
         // checking for email exists in a database
         if(userRepository.existsByEmail(signUpDto.getEmail())){
-            return new ResponseEntity<>("Email is already exist!", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Email already exists!", HttpStatus.BAD_REQUEST);
         }
         // creating user object
         User user = new User();
@@ -64,7 +65,7 @@ public class UserService {
         Role roles = roleRepository.findByName("ROLE_USER").get();
         user.setRoles(Collections.singleton(roles));
         userRepository.save(user);
-        return new ResponseEntity<String>("Registration successfull!", HttpStatus.OK);
+        return new ResponseEntity<String>("Registration successfully", HttpStatus.OK);
     }
 
 

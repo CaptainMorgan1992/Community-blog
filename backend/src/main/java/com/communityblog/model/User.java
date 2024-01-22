@@ -1,5 +1,7 @@
 package com.communityblog.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -11,9 +13,11 @@ import java.util.Set;
 @Table(name="users")
 @Data
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String name;
 
     @Column(nullable = false, unique = true)
@@ -23,14 +27,10 @@ public class User {
     private String email;
 
     @Column(nullable = false)
-    @Size(min = 4, message = "Password must be at least 4 characters long")
-    @Pattern.List({
-    @Pattern(regexp = "^(?=.*[0-9]).+$", message = "Password must contain at least one digit"),
-    @Pattern(regexp = "^(?=.*[A-Z]).+$", message = "Password must contain at least one uppercase letter")    })
     private String password;
 
-    @ManyToMany
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
     private Set<Role> roles;
 
 }

@@ -28,6 +28,8 @@ public class SecurityConfig {
         return configuration.getAuthenticationManager();
     }
 
+    //TODO: REFACTOR SecurityFilterChain
+
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http.securityContext((context) -> context.requireExplicitSave(false))
@@ -41,6 +43,7 @@ public class SecurityConfig {
                     config.setMaxAge(3600L);
                     return config;
                 }))
+
                 .csrf((csrf) -> csrf
                        .ignoringRequestMatchers(
                                "/api/register",
@@ -50,7 +53,8 @@ public class SecurityConfig {
                                "/api/blogpost",
                                "/api/blogpost/{id}",
                                "/api/blogpost/create",
-                               "/api/logout")
+                               "/api/logout",
+                               "/api/blogpost/delete/{id}")
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(
@@ -59,7 +63,8 @@ public class SecurityConfig {
                                 "/api/blogpost/delete/{id}",
                                 "/api/register",
                                 "/api/login",
-                                "/api/blogpost"
+                                "/api/blogpost",
+                                "/api/blogpost/delete/{id}"
                                 ).permitAll()
                         .requestMatchers( "/api/blogpost/create", "/api/blogpost/delete/{id}").hasRole("USER").anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults())
