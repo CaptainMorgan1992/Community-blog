@@ -41,7 +41,6 @@ public class SecurityConfig {
                     config.setMaxAge(3600L);
                     return config;
                 }))
-
                 .csrf((csrf) -> csrf
                        .ignoringRequestMatchers(
                                "/api/register",
@@ -51,8 +50,7 @@ public class SecurityConfig {
                                "/api/blogpost",
                                "/api/blogpost/{id}",
                                "/api/blogpost/create",
-
-                               "/api/blogpost/delete/{id}")
+                               "/api/blogpost/delete/{id}",
                                "/api/logout",
                                "/csrf")
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
