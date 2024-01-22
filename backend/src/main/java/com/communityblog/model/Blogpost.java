@@ -2,11 +2,13 @@ package com.communityblog.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
@@ -23,16 +25,13 @@ public class Blogpost {
     @Size(max = 255, message = "Too many characters. Maximum allowed: 255")
     private String content;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDateTime date;
+    private LocalDate date;
+
+    private String blogpostUsername;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
     private User author;
-
-    public Blogpost() {
-        this.date = LocalDateTime.now();
-    }
 
 }
