@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Moirai+One&family=Shadows+Into+Light&display=swap');
+
+.homepage-container{
+    height: 100vh;
+    background-image: url("../images/homePage.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(128, 128, 128, 0.35);
+
+}
+
+.homepage-container h2 {
+    font-family: 'Shadows Into Light', cursive;
+    background-color: #E2E3C5;
+    font-size: 2rem;
+
+    padding: 2px;
+    box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.2);
+    color: #1c2e32;
+
+}

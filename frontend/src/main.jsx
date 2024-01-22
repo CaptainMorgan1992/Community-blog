@@ -1,6 +1,6 @@
 import React from 'react';
 import App from './App';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import {
     Route,
     RouterProvider,
@@ -10,6 +10,8 @@ import {
 import HomePage from "./pages/HomePage.jsx";
 import ErrorBoundary from "./pages/errorBoundary.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
+import IndividualPostPage from "./pages/IndividualPostPage";
+import AllBlogPostsPage from "./pages/AllBlogPostsPage.jsx";
 import MyPostsPage from "./pages/MyPostsPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx"
 
@@ -21,12 +23,15 @@ const router = createBrowserRouter(
             <Route path={'register'} element={<RegisterPage/>}/>
             <Route path={'myPosts'} element={<MyPostsPage/>}/>
             <Route path={'login'} element={<LoginPage/>}/>
+            <Route path={'register'} element={<RegisterPage />} />
+            <Route path={'allPosts'} element={<AllBlogPostsPage />} />
+            <Route path={"blog/:id"} element={<IndividualPostPage />} />
         </Route>
     )
 )
 
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById('root')).render(
     <React.StrictMode>
         <RouterProvider router={router}/>
     </React.StrictMode>

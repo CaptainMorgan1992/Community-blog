@@ -9,6 +9,8 @@ import "./styles/RegisterPage.css"
 import "./styles/errorBoundary.css"
 import "./styles/LoginPage.css"
 import "./App.css"
+import "./styles/HomePage.css"
+import "./styles/IndividualPostPage.css"
 import {GlobalProvider} from "./GlobalContext.jsx";
 
 function App() {

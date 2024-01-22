@@ -6,8 +6,8 @@ export default function Navbar() {
             <button>Register</button>
         </Link>
 
-        <Link to={'myPosts'}>
-            <button>My posts</button>
+        <Link to={'allPosts'}>
+            <button>All posts</button>
         </Link>
         <Link to={'login'}>
             <button>Login</button>
