@@ -61,12 +61,14 @@ public class SecurityConfig {
                                 "/api/blogpost/delete/{id}",
                                 "/api/register",
                                 "/api/login",
+                                "/api/logout",
                                 "/api/blogpost",
-                                "/api/blogpost/delete/{id}"
+                                "/api/blogpost/delete/{id}",
+                                "/csrf"
                                 ).permitAll()
-                        .requestMatchers( "/api/blogpost/create", "/api/blogpost/delete/{id}").hasRole("USER").anyRequest().authenticated())
-                .formLogin(Customizer.withDefaults())
-                .httpBasic(Customizer.withDefaults());
+                        .requestMatchers( "/api/blogpost/create", "/api/blogpost/delete/{id}").hasRole("USER").anyRequest().authenticated());
+                //.formLogin(Customizer.withDefaults())
+        //.httpBasic(Customizer.withDefaults());
         return http.build();
     }
 
