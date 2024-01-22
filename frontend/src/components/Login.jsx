@@ -23,11 +23,8 @@ export default function Login() {
             setMessage("You must enter your correct login details")
             return;
         }
-        const response = await submitLogin(username, password);
+        await submitLogin(username, password);
 
-        if (response.ok) {
-            nav('/');
-        }
     }
 
     return  <form onSubmit={checkCredentials}>

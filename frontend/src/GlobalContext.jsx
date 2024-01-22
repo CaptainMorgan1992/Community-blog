@@ -29,13 +29,13 @@ export const GlobalProvider = ({children}) =>  {
     }*/
 
     const submitLogin = async (username, password) => {
-        const csrfRes = await fetch("http://localhost:8080/csrf", {credentials: "include"});
-       const token = await csrfRes.json()
+        //const csrfRes = await fetch("http://localhost:8080/csrf", {credentials: "include"});
+       //const token = await csrfRes.json()
         try {
         const response = await fetch("http://localhost:8080/api/login", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-                'X-CSRF-TOKEN': token.token,
+                //'X-CSRF-TOKEN': token.token,
             body: JSON.stringify({username, password})
         })
         setValidateResponse(response.ok);
@@ -44,14 +44,29 @@ export const GlobalProvider = ({children}) =>  {
         }
     }
 
+    const handleLogout = async () => {
+        try {
+            await fetch("http://localhost:8080/api/logout", {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'}
+            })
+            setValidateResponse(false);
+            console.log(validateResponse)
+        }
+
+        catch (error) {
+            console.error(error);
+        }
+    }
+
     const loadBlogPosts = async () => {
-       const csrfRes = await fetch("http://localhost:8080/csrf", {credentials: "include"});
-      const token = await csrfRes.json()
+      // const csrfRes = await fetch("http://localhost:8080/csrf", {credentials: "include"});
+      //const token = await csrfRes.json()
         const requestOptions = {
             method: 'GET', // or any other HTTP method you want to use
             headers: {
-                'Content-Type': 'application/json', // Example header, adjust as needed
-              'X-CSRF-TOKEN': token.token
+                'Content-Type': 'application/json' // Example header, adjust as needed
+              //'X-CSRF-TOKEN': token.token
             },
         };
 
@@ -70,13 +85,13 @@ export const GlobalProvider = ({children}) =>  {
     };
 
     const loadIndividualPost = useCallback(async (postId) => {
-        const csrfRes = await fetch("http://localhost:8080/csrf", { credentials: "include" });
-        const token = await csrfRes.json();
+        //const csrfRes = await fetch("http://localhost:8080/csrf", { credentials: "include" });
+        //const token = await csrfRes.json();
         const requestOptions = {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': token.token
+                'Content-Type': 'application/json'
+                //'X-CSRF-TOKEN': token.token
             },
         };
 
@@ -105,7 +120,8 @@ export const GlobalProvider = ({children}) =>  {
                 setIndividualPost,
                 loadIndividualPost,
                 submitLogin,
-                validateResponse
+                validateResponse,
+                handleLogout
             }}
         >
 
