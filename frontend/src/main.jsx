@@ -12,15 +12,24 @@ import ErrorBoundary from "./pages/errorBoundary.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
 import IndividualPostPage from "./pages/IndividualPostPage";
 import AllBlogPostsPage from "./pages/AllBlogPostsPage.jsx";
+import MyPostsPage from "./pages/MyPostsPage.jsx";
+import LoginPage from "./pages/LoginPage.jsx"
+import LogoutPage from "./pages/LogoutPage.jsx"
+import TestNewPost from "./pages/TestNewPost.jsx";
 
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<App/>} errorElement={<ErrorBoundary/>}>
-            <Route path="/" index element={<HomePage />} />
+            <Route path="/" index element={<HomePage/>}/>
+            <Route path={'register'} element={<RegisterPage/>}/>
+            <Route path={'myPosts'} element={<MyPostsPage/>}/>
+            <Route path={'login'} element={<LoginPage/>}/>
+            <Route path={'logout'} element={<LogoutPage/>}/>
             <Route path={'register'} element={<RegisterPage />} />
             <Route path={'allPosts'} element={<AllBlogPostsPage />} />
             <Route path={"blog/:id"} element={<IndividualPostPage />} />
+            <Route path={"testNewPost"} element={<TestNewPost />} />
         </Route>
     )
 )
