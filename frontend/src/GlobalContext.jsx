@@ -9,6 +9,7 @@ export const GlobalProvider = ({children}) =>  {
     //useStates for all variables
     const [blogPosts, setBlogPosts] = useState([])
     const [individualPost, setIndividualPost] = useState(null);
+    const [user, setUser] = useState(null);
     //imports from database
 
     useEffect(() => {
@@ -72,9 +73,34 @@ export const GlobalProvider = ({children}) =>  {
         } catch (error) {
             console.error(error);
         }
+
     }, []);
 
+    const registerUser = async (userData) => {
+        const csrfRes = await fetch('http://localhost:8080/csrf', { credentials: 'include' });
+        const token = await csrfRes.json();
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': token.token,
+            },
+            body: JSON.stringify(userData),
+        };
 
+        try {
+            const response = await fetch('http://localhost:8080/api/register', requestOptions);
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            setUser(result); // Update user state after successful registration
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     return (
         <GlobalContext.Provider
@@ -83,7 +109,11 @@ export const GlobalProvider = ({children}) =>  {
                 setBlogPosts,
                 individualPost,
                 setIndividualPost,
+                user,
+                setUser,
                 loadIndividualPost,
+                loadBlogPosts,
+                registerUser,
             }}
         >
 
