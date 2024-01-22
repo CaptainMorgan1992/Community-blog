@@ -1,0 +1,54 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Wix+Madefor+Text&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 5%;
+    font-family: 'Wix Madefor Text', sans-serif;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1%;
+    font-family: 'Wix Madefor Text', sans-serif;
+}
+
+input {
+    border: 1px solid black;
+    box-shadow: 0  2px 5px rgba(0, 0, 0, 0.2);
+    margin: 1%;
+    border-radius: 0.3rem;
+    width: 150px;
+    height: 25px;
+}
+
+form #login-button {
+    box-shadow:inset -9px 45px 22px -30px #d96c68;
+    background-color:#9e433c;
+    border-radius:0.5rem;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family: 'Wix Madefor Text', sans-serif;
+    font-size:15px;
+    font-weight:bold;
+    padding:10px 25px;
+    text-decoration:none;
+    letter-spacing: 0.1rem;
+    text-shadow:1px 0px 0px #b23e35;
+}
+
+form #login-button:hover {
+    background-color:#a34b46;
+}
+
+form #login-button:active {
+    position:relative;
+    top:1px;
+}
