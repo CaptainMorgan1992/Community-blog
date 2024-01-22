@@ -43,17 +43,27 @@ const RegisterPage = () => {
         }
 
         try {
-            const result = await registerUser(formData);
-            setRegistrationStatus(result);
+            const response = await registerUser(formData);
+
+            if (response.status === 200) {
+                // Assuming the backend sends a plain string response
+                const result = await response.text();
+                setRegistrationStatus({ success: true, message: result });
+            } else {
+                // Handle non-OK responses (e.g., validation errors)
+                const errorResponse = await response.json();
+                console.error('Error registering user:', errorResponse.message);
+            }
         } catch (error) {
             console.error('Error registering user:', error);
         }
     };
 
+
     return (
         <div className="register-container">
             <h2>Register Page</h2>
-            {registrationStatus ? (
+            {registrationStatus && registrationStatus.success ? (
                 <div>
                     <p>Registration successful! Welcome, {registrationStatus.username}!</p>
                     <button type="button" onClick={() => setRegistrationStatus(null)}>
@@ -63,16 +73,16 @@ const RegisterPage = () => {
             ) : (
                 <form>
                     <label>Name:</label>
-                    <input type="text" name="name" onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
+                    <input type="text" name="name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
 
                     <label>Username:</label>
-                    <input type="text" name="username" onChange={(e) => setFormData({ ...formData, username: e.target.value })} />
+                    <input type="text" name="username" value={formData.username} onChange={(e) => setFormData({ ...formData, username: e.target.value })} />
 
                     <label>Password:</label>
-                    <input type="password" name="password" onChange={(e) => setFormData({ ...formData, password: e.target.value })} />
+                    <input type="password" name="password" value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })} />
 
                     <label>Email:</label>
-                    <input type="email" name="email" onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
+                    <input type="email" name="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
 
                     {validationErrors.length > 0 && (
                         <div>

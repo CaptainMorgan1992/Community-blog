@@ -10,6 +10,7 @@ export const GlobalProvider = ({children}) =>  {
     const [validateResponse, setValidateResponse] = useState(false)
     const [individualPost, setIndividualPost] = useState(null);
     const [user, setUser] = useState(null);
+
     //imports from database
 
     useEffect(() => {
@@ -108,13 +109,10 @@ export const GlobalProvider = ({children}) =>  {
     }, []);
 
     const registerUser = async (userData) => {
-        const csrfRes = await fetch('http://localhost:8080/csrf', { credentials: 'include' });
-        const token = await csrfRes.json();
         const requestOptions = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': token.token,
             },
             body: JSON.stringify(userData),
         };
@@ -122,16 +120,13 @@ export const GlobalProvider = ({children}) =>  {
         try {
             const response = await fetch('http://localhost:8080/api/register', requestOptions);
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            const result = await response.json();
-            setUser(result); // Update user state after successful registration
+            return response; // Return the entire response object
         } catch (error) {
             console.error(error);
+            return null; // Return null in case of an error
         }
     };
+
 
     return (
         <GlobalContext.Provider
