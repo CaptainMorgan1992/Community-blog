@@ -1,6 +1,7 @@
-import GlobalContext from "../GlobalContext.jsx";
 import {useContext, useState} from "react";
 import {Link} from "react-router-dom";
+import GlobalContext from "../GlobalContext.jsx";
+import SearchBar from "../components/SearchBar";
 
 export default function AllBlogPostsPage() {
     const {blogPosts} = useContext(GlobalContext);
@@ -12,14 +13,7 @@ export default function AllBlogPostsPage() {
 
     return (
         <>
-            <div className="searchBar">
-                <input
-                    type="text"
-                    placeholder="Search..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
-            </div>
+            <SearchBar searchTerm={searchTerm} onChange={setSearchTerm}/>
             <div className={"blogpost"}>
                 {filteredBlogPosts.map((post) => (
                     <div className="post" key={post.id}>
@@ -31,7 +25,9 @@ export default function AllBlogPostsPage() {
                         </p>
                         <p className="author">
                             Author: {post.author} |{" "}
-                            <Link to={`/blog/${post.id}`}><span className="readMore">Read more</span></Link>
+                            <Link to={`/blog/${post.id}`}>
+                                <span className="readMore">Read more</span>
+                            </Link>
                         </p>
                     </div>
                 ))}
