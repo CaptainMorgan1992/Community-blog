@@ -1,5 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Moirai+One&family=Shadows+Into+Light&display=swap');
+
 .header {
-    background-color: darkkhaki;
+    background-color: rgb(10, 47, 50);
     padding-bottom: 25px;
     padding-top: 25px;
+}
+
+.blog-title{
+    display: flex;
+    justify-content: center;
+    color: #ffffff;
+    font-family: 'Shadows Into Light', cursive;
+
+}
+
+.header a {
+    text-decoration: none;
+
+}
+
+.header span {
+    color: #1c2e32;
+    padding-right: 6px;
+    padding-left: 6px;
+    font-size: 30px;
+    background-color: #eb9c11;
+    font-family: 'Moirai One', system-ui;
+    margin-right: 3px;
 }

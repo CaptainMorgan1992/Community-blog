@@ -28,8 +28,6 @@ public class SecurityConfig {
         return configuration.getAuthenticationManager();
     }
 
-    //TODO: REFACTOR SecurityFilterChain
-
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http.securityContext((context) -> context.requireExplicitSave(false))
@@ -53,8 +51,10 @@ public class SecurityConfig {
                                "/api/blogpost",
                                "/api/blogpost/{id}",
                                "/api/blogpost/create",
-                               "/api/logout",
+
                                "/api/blogpost/delete/{id}")
+                               "/api/logout",
+                               "/csrf")
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(

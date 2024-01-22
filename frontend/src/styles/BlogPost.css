@@ -1,13 +1,80 @@
-.blogpost{
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Moirai+One&family=Nunito+Sans:opsz,wght@6..12,300&family=Saira:ital,wght@1,100&family=Shadows+Into+Light&display=swap');
+.blogpost {
+    flex-grow: 1;
     display: flex;
+    align-items: center;
     flex-direction: column;
-    border:2px solid black;
-    align-items: flex-start;
-    margin: 0 0 10px 10px;
-
+    background-color: #f8e9c7;
+    background-image: url("../images/post.jpg");
+    background-size: cover;
+    background-position: center;
+    background-color: rgba(128, 128, 128, 0.35);
+    width: 100%;
+    min-height: 100vh;
 }
 
-.content{
-    margin-left: 10px;
+.post {
+    background-color: rgba(28, 46, 50, 0.27);
+    margin-bottom: 10px;
+    font-family: 'Nunito Sans', sans-serif;
+    margin-top: 10px;
+    padding: 10px;
+    box-shadow: 2px 10px 10px rgba(216, 226, 216, 0.5);
+    max-width: 80%;
+}
 
+.blogpost h2 {
+    display: flex;
+    justify-content: center;
+    color: #EB9C11;
+}
+.blogpost h2:hover {
+    color: #9a836d;
+}
+.content {
+    margin-left: 10px;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 18px;
+    color: white;
+}
+
+.searchBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0a2f32;
+    padding-bottom: 20px;
+}
+
+.searchBar input {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.searchBar input:focus {
+    outline: none;
+    border-color: #4caf8b;
+    box-shadow: 0 0 5px rgba(216, 226, 216, 0.5);
+}
+
+.author {
+    display: flex;
+    justify-content: flex-end;
+    color: #a6a4a2;
+}
+.readMore {
+    margin-left: 5px;
+    color: #a6a4a2;
+    font-weight: bold;
+}
+
+.readMore:hover {
+    color: #9a836d;
 }
