@@ -14,9 +14,9 @@ export const GlobalProvider = ({children}) =>  {
 
     useEffect(() => {
         setValidateResponse(validateResponse);
-        setBlogPosts(blogPosts)
+        //setBlogPosts(blogPosts)
         void loadBlogPosts()
-    }, [blogPosts, validateResponse]);
+    }, [validateResponse]);
 
 
 
@@ -29,20 +29,27 @@ export const GlobalProvider = ({children}) =>  {
     }*/
 
     const submitLogin = async (username, password) => {
-        //const csrfRes = await fetch("http://localhost:8080/csrf", {credentials: "include"});
-       //const token = await csrfRes.json()
         try {
-        const response = await fetch("http://localhost:8080/api/login", {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-                //'X-CSRF-TOKEN': token.token,
-            body: JSON.stringify({username, password})
-        })
-        setValidateResponse(response.ok);
+            // Fetch CSRF token
+            const csrfRes = await fetch("http://localhost:8080/csrf", { credentials: "include" });
+            const token = await csrfRes.json();
+
+            // Submit login request
+            const response = await fetch("http://localhost:8080/api/login", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': token.token
+                },
+                body: JSON.stringify({ username, password }),
+                credentials: 'include'  // Include credentials in the login request
+            });
+
+            setValidateResponse(response.ok);
         } catch (error) {
             console.error(error);
         }
-    }
+    };
 
     const handleLogout = async () => {
         try {
