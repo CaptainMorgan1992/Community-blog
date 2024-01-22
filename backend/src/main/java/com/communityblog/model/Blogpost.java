@@ -34,15 +34,4 @@ public class Blogpost {
     @JoinColumn(name = "author_id")
     private User author;
 
-  /*  @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "author_id")
-    private User author;*/
-
-
-    /* @JsonProperty("authorUsername")
-    public String getAuthorUsername() {
-        return this.author != null ? this.author.getUserName() : null;
-    }*/
-
 }

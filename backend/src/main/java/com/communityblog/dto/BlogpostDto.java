@@ -21,4 +21,11 @@ public class BlogpostDto {
         this.date = LocalDate.now();
     }
 
+    public BlogpostDto(String title, String content, LocalDate date) {
+        this.title = title;
+        this.content = content;
+        this.date = date;
+    }
+
+
 }
