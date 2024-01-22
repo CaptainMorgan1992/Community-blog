@@ -1,13 +1,13 @@
 package com.communityblog.controller;
 
 
+import com.communityblog.dto.BlogpostDto;
 import com.communityblog.model.Blogpost;
 import com.communityblog.service.BlogpostService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -25,11 +25,18 @@ public class BlogpostController {
     }
 
 
-    @PostMapping("/create")
+ @PostMapping("/create")
+    public ResponseEntity<String> createBlogpost(@Valid @RequestBody BlogpostDto blogpostDto, Principal principal) {
+        blogpostService.createBlogPost(blogpostDto, principal);
+        return new ResponseEntity<>("Blogpost created", HttpStatus.CREATED);
+    }
+
+
+   /* @PostMapping("/create")
     public ResponseEntity<String> createBlogpost(@Valid @RequestBody Blogpost blogpost, Principal principal) {
         blogpostService.createBlogPost(blogpost, principal);
         return new ResponseEntity<>("Blogpost created", HttpStatus.CREATED);
-    }
+    }*/
 
     @GetMapping("/all")
     public ResponseEntity<List<Blogpost>> getAllBlogPosts() {
