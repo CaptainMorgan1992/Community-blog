@@ -9,7 +9,6 @@ export const GlobalProvider = ({children}) =>  {
     //useStates for all variables
     const [blogPosts, setBlogPosts] = useState([])
     const [validateResponse, setValidateResponse] = useState(false)
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
     //imports from database
 
     useEffect(() => {
@@ -29,18 +28,17 @@ export const GlobalProvider = ({children}) =>  {
     }*/
 
     const submitLogin = async (username, password) => {
-        //const csrfRes = await fetch("http://localhost:8080/csrf", {credentials: "include"});
-       // const token = await csrfRes.json()
+        const csrfRes = await fetch("http://localhost:8080/csrf", {credentials: "include"});
+       const token = await csrfRes.json()
         try {
         const response = await fetch("http://localhost:8080/api/login", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-                //'X-CSRF-TOKEN': token.token},
+                'X-CSRF-TOKEN': token.token,
             body: JSON.stringify({username, password})
         })
         setValidateResponse(response.ok);
-        setIsLoggedIn(true)
-        console.log(response.ok) } catch (error) {
+        } catch (error) {
             console.error(error);
         }
     }
@@ -76,8 +74,6 @@ export const GlobalProvider = ({children}) =>  {
                 blogPosts,
                 setBlogPosts,
                 submitLogin,
-                isLoggedIn,
-                setIsLoggedIn,
                 validateResponse
             }}
         >

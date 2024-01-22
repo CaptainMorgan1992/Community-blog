@@ -7,8 +7,7 @@ export default function Login() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [message, setMessage] = useState('')
-    const [validateResponse, setValidateResponse] = useState(false)
-    const {submitLogin} = useContext(GlobalContext)
+    const {validateResponse, submitLogin} = useContext(GlobalContext)
     const nav = useNavigate();
 
 
@@ -27,7 +26,6 @@ export default function Login() {
         const response = await submitLogin(username, password);
 
         if (response.ok) {
-            setValidateResponse(true);
             nav('/');
         }
     }
