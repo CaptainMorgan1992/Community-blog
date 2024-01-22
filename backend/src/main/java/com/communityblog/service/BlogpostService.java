@@ -44,15 +44,6 @@ public class BlogpostService {
     }
 
 
-  /*  public void createBlogPost(Blogpost blogPost, Principal principal) {
-        String username = principal.getName();
-        System.out.println(principal.getName());
-        User user = userRepository.findByUserName(username);
-        System.out.println(user);
-        blogPost.setAuthor(user);
-        blogPostRepository.save(blogPost);
-    }*/
-
     public List<Blogpost> getAllBlogPosts() {
         return blogPostRepository.findAll();
     }

@@ -25,18 +25,12 @@ public class BlogpostController {
     }
 
 
- @PostMapping("/create")
+    @PostMapping("/create")
     public ResponseEntity<String> createBlogpost(@Valid @RequestBody BlogpostDto blogpostDto, Principal principal) {
         blogpostService.createBlogPost(blogpostDto, principal);
         return new ResponseEntity<>("Blogpost created", HttpStatus.CREATED);
     }
 
-
-   /* @PostMapping("/create")
-    public ResponseEntity<String> createBlogpost(@Valid @RequestBody Blogpost blogpost, Principal principal) {
-        blogpostService.createBlogPost(blogpost, principal);
-        return new ResponseEntity<>("Blogpost created", HttpStatus.CREATED);
-    }*/
 
     @GetMapping("/all")
     public ResponseEntity<List<Blogpost>> getAllBlogPosts() {
