@@ -24,7 +24,7 @@ export default function AllBlogPostsPage() {
                             {truncateContent(post.content, 100)} {/* Limit to 100 characters */}
                         </p>
                         <p className="author">
-                            Author: {post.author} |{" "}
+                            Author: {post.blogpostUsername} |{" "}
                             <Link to={`/blog/${post.id}`}>
                                 <span className="readMore">Read more</span>
                             </Link>
