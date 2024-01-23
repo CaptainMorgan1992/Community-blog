@@ -18,7 +18,7 @@ export default function Navbar() {
                     <Link to={'myPosts'}>
                         <button>My posts</button>
                     </Link>
-                    <Link to={'testNewPost'}>
+                    <Link to={'createPost'}>
                         <button>Create post</button>
                     </Link>
                     <Link to={'logout'}>

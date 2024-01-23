@@ -2,14 +2,14 @@ import { useContext, useEffect } from 'react';
 import GlobalContext from '../GlobalContext';
 
 const MyPostsPage = () => {
-    const { myPosts, loadMyPosts } = useContext(GlobalContext);
+    const { myPosts, loadMyPosts, validateResponse } = useContext(GlobalContext);
 
 
     useEffect(() => {
         loadMyPosts();
     }, [loadMyPosts]);
 
-
+if (validateResponse) {
     return (
         <div>
             <h2>HEY My Posts</h2>
@@ -21,6 +21,15 @@ const MyPostsPage = () => {
             ))}
         </div>
     );
-};
+} else {
+    return (
+        <div>
+            <h2>You are not logged in.</h2>
+        </div>
+    )
+}
+
+}
+
 
 export default MyPostsPage;

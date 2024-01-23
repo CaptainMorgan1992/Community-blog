@@ -30,7 +30,7 @@ const router = createBrowserRouter(
             <Route path={'allPosts'} element={<AllBlogPostsPage />} />
             <Route path={'myPosts/:username'} element = {<MyPostsPage/>} />
             <Route path={"blog/:id"} element={<IndividualPostPage />} />
-            <Route path={"testNewPost"} element={<CreatePost />} />
+            <Route path={"createPost"} element={<CreatePost />} />
         </Route>
     )
 )
