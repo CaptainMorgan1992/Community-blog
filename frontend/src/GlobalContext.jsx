@@ -8,7 +8,8 @@ export const GlobalProvider = ({children}) =>  {
 
     const [blogPosts, setBlogPosts] = useState([])
     const [myPosts, setMyPosts] = useState([])
-    const [validateResponse, setValidateResponse] = useState(false)
+    const initialValidateResponse = JSON.parse(localStorage.getItem("validateResponse"))
+    const [validateResponse, setValidateResponse] = useState(initialValidateResponse)
     const [individualPost, setIndividualPost] = useState(null);
     const [user, setUser] = useState(null);
 
@@ -36,7 +37,8 @@ export const GlobalProvider = ({children}) =>  {
                 credentials: 'include'  // Include credentials in the login request
             });
 
-            setValidateResponse(response.ok);
+            setValidateResponse(response.ok)
+            localStorage.setItem("validateResponse", JSON.stringify(response.ok));
         } catch (error) {
             console.error(error);
         }
@@ -55,6 +57,7 @@ export const GlobalProvider = ({children}) =>  {
                 credentials: 'include' });
 
             setValidateResponse(false);
+            localStorage.removeItem("validateResponse")
             console.log(validateResponse)
         }
 
