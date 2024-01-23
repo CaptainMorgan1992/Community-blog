@@ -1,15 +1,12 @@
 package com.communityblog.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 
 @Entity
@@ -22,7 +19,6 @@ public class Blogpost {
 
     private String title;
 
-    @Size(max = 255, message = "Too many characters. Maximum allowed: 255")
     private String content;
 
     private LocalDate date;

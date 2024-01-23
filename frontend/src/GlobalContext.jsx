@@ -12,6 +12,7 @@ export const GlobalProvider = ({children}) =>  {
 
     useEffect(() => {
         setValidateResponse(validateResponse);
+        console.log(validateResponse)
         void loadBlogPosts()
     }, [validateResponse]);
 

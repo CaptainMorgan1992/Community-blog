@@ -10,6 +10,4 @@ import java.util.Optional;
 @Repository
 public interface BlogpostRepository extends JpaRepository<Blogpost, Long> {
 
-    Optional<Blogpost> findByIdAndAuthor(Long id, User author);
-
 }
