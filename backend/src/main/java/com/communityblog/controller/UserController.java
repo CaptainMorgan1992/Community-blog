@@ -28,13 +28,13 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<String> authenticateUser(@RequestBody LoginDto loginDto) {
         userService.authenticateUser(loginDto);
-        return new ResponseEntity<>("User login successfully!...", HttpStatus.OK);
+        return new ResponseEntity<>("Successfully logged in!", HttpStatus.OK);
     }
 
 
     @PostMapping("/logout")
     public ResponseEntity<String> logoutUser(HttpServletRequest request, HttpSession session) {
-        return new ResponseEntity<>("User logout successfully!...", HttpStatus.OK);
+        return new ResponseEntity<>("Logout successful!", HttpStatus.OK);
     }
 
     //With a Global Exception Handler
@@ -42,20 +42,4 @@ public class UserController {
     public ResponseEntity<String> registerUser(@Valid @RequestBody SignUpDto signUpDto) {
         return userService.registerUser(signUpDto);
     }
-
-    //Without a Global Exception Handler
-  /*  @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@Valid @RequestBody SignUpDto signUpDto, BindingResult result) {
-        if (result.hasErrors()) {
-            String errorMessage = result.getFieldErrors().stream()
-                    .map(error -> error.getDefaultMessage())
-                    .collect(Collectors.joining("\n"));
-
-            return ResponseEntity.badRequest().body(errorMessage);
-        }
-
-        return userService.registerUser(signUpDto);
-    }*/
-
-
 }

@@ -9,9 +9,13 @@ export const GlobalProvider = ({children}) =>  {
     const [blogPosts, setBlogPosts] = useState([])
     const [validateResponse, setValidateResponse] = useState(false)
     const [individualPost, setIndividualPost] = useState(null);
+    const [user, setUser] = useState(null);
+
+    //imports from database
 
     useEffect(() => {
         setValidateResponse(validateResponse);
+        console.log(validateResponse)
         void loadBlogPosts()
     }, [validateResponse]);
 
@@ -102,8 +106,27 @@ export const GlobalProvider = ({children}) =>  {
         } catch (error) {
             console.error(error);
         }
+
     }, []);
 
+    const registerUser = async (userData) => {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData),
+        };
+
+        try {
+            const response = await fetch('http://localhost:8080/api/register', requestOptions);
+
+            return response; // Return the entire response object
+        } catch (error) {
+            console.error(error);
+            return null; // Return null in case of an error
+        }
+    };
 
 
     return (
@@ -113,10 +136,13 @@ export const GlobalProvider = ({children}) =>  {
                 setBlogPosts,
                 individualPost,
                 setIndividualPost,
+                user,
+                setUser,
                 loadIndividualPost,
                 submitLogin,
                 validateResponse,
-                handleLogout
+                handleLogout,
+                registerUser,
             }}
         >
 

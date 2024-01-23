@@ -1,0 +1,67 @@
+.blogpost-creation-container {
+    width: 400px;
+    margin: 20px auto;
+    border: 1px solid rgb(10, 47, 50);
+    border-radius: 10px;
+    overflow: hidden; /* Hide overflow to make rounded corners visible */
+}
+
+.blogpost-creation-input-container {
+    padding: 10px;
+}
+
+.blogpost-creation-title {
+    border: 1px solid black;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    margin: 1%;
+    border-radius: 0.2rem;
+    width: 170px;
+    height: 25px;
+}
+
+.blogpost-creation-text-area {
+    width: calc(100% - 20px);
+    height: 100px;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid rgb(10, 47, 50);
+    border-radius: 0;
+    outline: none;
+    resize: none; /* Disable textarea resizing */
+}
+
+.blogpost-creation-button-container {
+  /*  background-color: rgb(232, 229, 229);*/
+    padding: 5px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.blogpost-creation-post-button {
+    width: 100%;
+    padding: 8px 0;
+    border: none;
+    background-color: rgb(10, 47, 50); /*Background color for the CREATE BUTTON*/
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.blogpost-creation-success-message {
+    width: 100%;
+    padding: 8px 0;
+    border: none;
+    background-color: #3b8c3a;
+    color: #fff;
+    border-radius: 5px;
+    text-transform: uppercase;
+    margin-top: 2px;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.blogpost-creation-post-button:before {
+    content: none;
+}

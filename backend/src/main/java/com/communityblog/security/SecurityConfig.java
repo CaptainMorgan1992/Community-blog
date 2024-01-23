@@ -3,7 +3,6 @@ package com.communityblog.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -42,33 +41,24 @@ public class SecurityConfig {
                     return config;
                 }))
                 .csrf((csrf) -> csrf
-                       .ignoringRequestMatchers(
-                               "/api/register",
-                               "/api/hello",
-                               "/api/login",
-                               "/api/home",
-                               "/api/blogpost",
-                               "/api/blogpost/{id}",
-                               "/api/blogpost/create",
-                               "/api/blogpost/delete/{id}",
-                               "/api/logout",
-                               "/csrf")
+                        .ignoringRequestMatchers(
+                                "/api/register",
+                                "/api/login",
+                                "/api/home",
+                                "/api/blogpost/all",
+                                "/api/blogpost/{id}",
+                                "/csrf")
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .authorizeHttpRequests((requests) -> requests
+                        .requestMatchers( "/api/blogpost/create", "/api/logout", "/api/blogpost/delete/{id}", "/all/{username}").authenticated()
                         .requestMatchers(
                                 "/api/blogpost/all",
                                 "/api/blogpost/{id}",
-                                "/api/blogpost/delete/{id}",
                                 "/api/register",
                                 "/api/login",
-                                "/api/logout",
-                                "/api/blogpost",
-                                "/api/blogpost/delete/{id}",
                                 "/csrf"
-                                ).permitAll()
-                        .requestMatchers( "/api/blogpost/create", "/api/blogpost/delete/{id}", "/all/{username}").hasRole("USER").anyRequest().authenticated());
-                //.formLogin(Customizer.withDefaults())
-        //.httpBasic(Customizer.withDefaults());
+                        ).permitAll());
+
         return http.build();
     }
 
