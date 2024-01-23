@@ -1,15 +1,19 @@
 package com.communityblog.dto;
 
-import com.communityblog.model.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.time.LocalDate;
 
 @Data
 public class BlogpostDto {
+
     private Long id;
+
     private String title;
+
+    @Size(max = 255, message = "Too many characters. Maximum allowed: 255")
     private String content;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -20,12 +24,4 @@ public class BlogpostDto {
     public BlogpostDto() {
         this.date = LocalDate.now();
     }
-
-    public BlogpostDto(String title, String content, LocalDate date) {
-        this.title = title;
-        this.content = content;
-        this.date = date;
-    }
-
-
 }

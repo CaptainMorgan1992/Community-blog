@@ -37,8 +37,6 @@ public class UserService {
         this.roleRepository = roleRepository;
     }
 
-
-
     public void authenticateUser(LoginDto loginDto) {
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword()));

@@ -15,18 +15,23 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserDetail implements UserDetailsService {
-    @Autowired
     UserRepository userRepo;
+
+    @Autowired
+    public UserDetail(UserRepository userRepo) {
+        this.userRepo = userRepo;
+    }
+
     @Override
-    public UserDetails loadUserByUsername(String username)throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepo.findByUserName(username);
-        if(user==null){
-            throw new UsernameNotFoundException("User not exists by Username");
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found by Username");
         }
 
         Set<GrantedAuthority> authorities = user.getRoles().stream()
                 .map((role) -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toSet());
-        return new org.springframework.security.core.userdetails.User(username,user.getPassword(),authorities);
+        return new org.springframework.security.core.userdetails.User(username, user.getPassword(), authorities);
     }
 }

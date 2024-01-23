@@ -3,7 +3,6 @@ package com.communityblog.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -42,13 +41,13 @@ public class SecurityConfig {
                     return config;
                 }))
                 .csrf((csrf) -> csrf
-                       .ignoringRequestMatchers(
-                               "/api/register",
-                               "/api/login",
-                               "/api/home",
-                               "/api/blogpost/all",
-                               "/api/blogpost/{id}",
-                               "/csrf")
+                        .ignoringRequestMatchers(
+                                "/api/register",
+                                "/api/login",
+                                "/api/home",
+                                "/api/blogpost/all",
+                                "/api/blogpost/{id}",
+                                "/csrf")
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers( "/api/blogpost/create", "/api/logout", "/api/blogpost/delete/{id}").authenticated()
@@ -58,7 +57,7 @@ public class SecurityConfig {
                                 "/api/register",
                                 "/api/login",
                                 "/csrf"
-                                ).permitAll());
+                        ).permitAll());
 
         return http.build();
     }
