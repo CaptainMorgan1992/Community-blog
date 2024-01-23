@@ -37,7 +37,7 @@ public class SecurityConfig {
                     config.setAllowedOrigins(Collections.singletonList("http://localhost:5173"));
                     config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT"));
                     config.setAllowCredentials(true);
-                    config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+                    config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "x-csrf-token"));
                     config.setMaxAge(3600L);
                     return config;
                 }))
