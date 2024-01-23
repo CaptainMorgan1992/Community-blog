@@ -15,7 +15,7 @@ import AllBlogPostsPage from "./pages/AllBlogPostsPage.jsx";
 import MyPostsPage from "./pages/MyPostsPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx"
 import LogoutPage from "./pages/LogoutPage.jsx"
-import TestNewPost from "./pages/TestNewPost.jsx";
+import CreatePost from "./pages/CreatePost.jsx";
 
 
 const router = createBrowserRouter(
@@ -28,9 +28,9 @@ const router = createBrowserRouter(
             <Route path={'logout'} element={<LogoutPage/>}/>
             <Route path={'register'} element={<RegisterPage />} />
             <Route path={'allPosts'} element={<AllBlogPostsPage />} />
-            <Route path={'myPosts/{username}'} element = {<MyPostsPage/>} />
+            <Route path={'myPosts/:username'} element = {<MyPostsPage/>} />
             <Route path={"blog/:id"} element={<IndividualPostPage />} />
-            <Route path={"testNewPost"} element={<TestNewPost />} />
+            <Route path={"testNewPost"} element={<CreatePost />} />
         </Route>
     )
 )

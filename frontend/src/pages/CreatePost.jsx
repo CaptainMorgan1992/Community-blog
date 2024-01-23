@@ -1,46 +1,8 @@
-import React, { useState, useContext } from 'react';
+import { useContext } from 'react';
 import GlobalContext from '../GlobalContext.jsx';
 
-export default function TestNewPost() {
-    const [postTitle, setPostTitle] = useState('');
-    const [postContent, setPostContent] = useState('');
-    const { validateResponse } = useContext(GlobalContext);
-    const [postCreated, setPostCreated] = useState(false);
-
-
-    const handlePost = async () => {
-        try {
-            const csrfRes = await fetch('http://localhost:8080/csrf', { credentials: 'include' });
-            const token = await csrfRes.json();
-
-            const requestOptions = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': token.token,
-                },
-                body: JSON.stringify({ title: postTitle, content: postContent }),
-                credentials: 'include',
-            };
-
-            const response = await fetch('http://localhost:8080/api/blogpost/create', requestOptions);
-
-            if (response.ok) {
-                // Handle success, e.g., clear input fields and provide visual feedback
-                setPostTitle('');
-                setPostContent('');
-                setPostCreated(true);
-                console.log('Blogpost created!');
-                // Hide the success message after a short delay (e.g., 2.5 seconds)
-                setTimeout(() => setPostCreated(false), 3000);
-            } else {
-                // Handle failure, e.g., display an error message
-                console.error('Failed to create blog post');
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    };
+export default function CreatePost() {
+    const { validateResponse, handlePost, postTitle, postContent, setPostTitle, setPostContent, postCreated, setPostCreated} = useContext(GlobalContext);
 
     const handleTitleChange = (event) => {
         setPostTitle(event.target.value);

@@ -44,9 +44,9 @@ public class BlogpostController {
         return new ResponseEntity<>(blogpost, HttpStatus.OK);
     }
 
-    @GetMapping("/all/{username}")
-    public ResponseEntity<List<Blogpost>> findBlogpostByAuthor( @PathVariable String username){
-        List<Blogpost> blogposts = blogpostService.findBlogpostByAuthor(username);
+    @GetMapping("/myPosts")
+    public ResponseEntity<List<Blogpost>> findBlogpostByAuthor(Principal principal){
+        List<Blogpost> blogposts = blogpostService.findBlogpostByAuthor(principal.getName());
         return new ResponseEntity<>(blogposts, HttpStatus.OK);
     }
 

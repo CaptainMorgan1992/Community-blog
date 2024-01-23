@@ -1,15 +1,20 @@
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import GlobalContext from "../GlobalContext.jsx";
 import SearchBar from "../components/SearchBar";
 
 export default function AllBlogPostsPage() {
-    const {blogPosts} = useContext(GlobalContext);
+    const {blogPosts,loadBlogPosts} = useContext(GlobalContext);
     const [searchTerm, setSearchTerm] = useState("");
 
     const filteredBlogPosts = blogPosts.filter((post) =>
         post.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    useEffect(() => {
+        loadBlogPosts();
+    }, [loadBlogPosts]);
+
 
     return (
         <>

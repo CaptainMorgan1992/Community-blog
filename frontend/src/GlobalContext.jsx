@@ -12,26 +12,38 @@ export const GlobalProvider = ({children}) =>  {
     const [validateResponse, setValidateResponse] = useState(initialValidateResponse)
     const [individualPost, setIndividualPost] = useState(null);
     const [user, setUser] = useState(null);
+    const [csrfToken, setCsrfToken] = useState(null);
+    const [postTitle, setPostTitle] = useState('');
+    const [postContent, setPostContent] = useState('');
+    const [postCreated, setPostCreated] = useState(false);
 
     //imports from database
 
     useEffect(() => {
         setValidateResponse(validateResponse);
         console.log(validateResponse)
-        void loadBlogPosts()
+        void loadBlogPosts();
+        fetchCsrfToken();
     }, [validateResponse]);
 
+    const fetchCsrfToken = async () => {
+        try {
+            const csrfRes = await fetch("http://localhost:8080/csrf", { credentials: "include" });
+            const token = await csrfRes.json();
+            setCsrfToken(token.token);
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     const submitLogin = async (username, password) => {
         try {
             // Fetch CSRF token
-            const csrfRes = await fetch("http://localhost:8080/csrf", { credentials: "include" });
-            const token = await csrfRes.json();
             const response = await fetch("http://localhost:8080/api/login", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': token.token
+                    'X-CSRF-TOKEN': csrfToken,
                 },
                 body: JSON.stringify({ username, password }),
                 credentials: 'include'  // Include credentials in the login request
@@ -46,13 +58,10 @@ export const GlobalProvider = ({children}) =>  {
 
     const handleLogout = async () => {
         try {
-            const csrfRes = await fetch("http://localhost:8080/csrf", { credentials: "include" });
-            const token = await csrfRes.json();
-
-            await fetch("http://localhost:8080/api/logout", {
+          await fetch("http://localhost:8080/api/logout", {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json',
-                'X-CSRF-TOKEN' : token.token
+                'X-CSRF-TOKEN' : csrfToken,
             },
                 credentials: 'include' });
 
@@ -66,34 +75,37 @@ export const GlobalProvider = ({children}) =>  {
         }
     }
 
-    const loadMyPosts = async () => {
+    const loadMyPosts = useCallback(async () => {
         try {
             const csrfRes = await fetch("http://localhost:8080/csrf", { credentials: "include" });
             const token = await csrfRes.json();
 
-            const response = await fetch("http://localhost:8080/api/blogpost/all/{username}", {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN' : token.token
+            const response = await fetch(`http://localhost:8080/api/blogpost/myPosts`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': token.token,
                 },
-                credentials: 'include' });
+                credentials: 'include',
+            });
 
-            setValidateResponse(false);
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
             const result = await response.json();
-            setBlogPosts(result);
-        }
-
-        catch (error) {
+            setMyPosts(result);
+        } catch (error) {
             console.error(error);
         }
-    }
+    }, []);
 
-    const loadBlogPosts = async () => {
 
+    const loadBlogPosts = useCallback(async () => {
         const requestOptions = {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
         };
 
@@ -109,7 +121,7 @@ export const GlobalProvider = ({children}) =>  {
         } catch (error) {
             console.error(error);
         }
-    };
+    }, []);
 
     const loadIndividualPost = useCallback(async (postId) => {
 
@@ -154,6 +166,37 @@ export const GlobalProvider = ({children}) =>  {
         }
     };
 
+    const handlePost = async () => {
+        try {
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                body: JSON.stringify({ title: postTitle, content: postContent }),
+                credentials: 'include',
+            };
+
+            const response = await fetch('http://localhost:8080/api/blogpost/create', requestOptions);
+
+            if (response.ok) {
+                // Handle success, e.g., clear input fields and provide visual feedback
+                setPostTitle('');
+                setPostContent('');
+                setPostCreated(true);
+                console.log('Blogpost created!');
+                // Hide the success message after a short delay (e.g., 2.5 seconds)
+                setTimeout(() => setPostCreated(false), 6000);
+            } else {
+                // Handle failure, e.g., display an error message
+                console.error('Failed to create blog post');
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
 
     return (
         <GlobalContext.Provider
@@ -171,7 +214,15 @@ export const GlobalProvider = ({children}) =>  {
                 registerUser,
                 myPosts,
                 setMyPosts,
-                loadMyPosts
+                loadMyPosts,
+                loadBlogPosts,
+                handlePost,
+                setPostTitle,
+                setPostContent,
+                postContent,
+                postTitle,
+                postCreated,
+                setPostCreated
             }}
         >
 

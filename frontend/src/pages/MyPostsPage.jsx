@@ -4,9 +4,11 @@ import GlobalContext from '../GlobalContext';
 const MyPostsPage = () => {
     const { myPosts, loadMyPosts } = useContext(GlobalContext);
 
+
     useEffect(() => {
         loadMyPosts();
     }, [loadMyPosts]);
+
 
     return (
         <div>

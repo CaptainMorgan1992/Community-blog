@@ -15,14 +15,14 @@ export default function Navbar() {
 
             {validateResponse && (
                 <>
-                    <Link to={'logout'}>
-                        <button onClick={handleLogout}>Logout</button>
-                    </Link>
-                    <Link to={'myPosts/{username}'}>
+                    <Link to={'myPosts'}>
                         <button>My posts</button>
                     </Link>
                     <Link to={'testNewPost'}>
                         <button>Create post</button>
+                    </Link>
+                    <Link to={'logout'}>
+                        <button onClick={handleLogout}>Logout</button>
                     </Link>
                 </>
             )}
