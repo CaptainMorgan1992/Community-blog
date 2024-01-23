@@ -7,7 +7,6 @@ export default function Login() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [message, setMessage] = useState('')
-    const [isLoggedIn, setLoggedIn] = useState(false);
     const {validateResponse, submitLogin} = useContext(GlobalContext)
     const nav = useNavigate();
 
@@ -15,10 +14,9 @@ export default function Login() {
 
     useEffect(() => {
         if (validateResponse) {
-            setLoggedIn(true);
             nav('/');
         }
-    }, [validateResponse, nav, setLoggedIn]);
+    }, [validateResponse, nav]);
 
     const checkCredentials = async (e) => {
         e.preventDefault();
