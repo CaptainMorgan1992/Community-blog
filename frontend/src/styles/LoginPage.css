@@ -52,3 +52,7 @@ form #login-button:active {
     position:relative;
     top:1px;
 }
+
+#error-message {
+    color: black;
+}
