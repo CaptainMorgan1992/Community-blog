@@ -53,6 +53,10 @@ public class BlogpostService {
     }
 
 
+    public List<Blogpost> findBlogpostByAuthor(String username){
+        return blogPostRepository.findByBlogpostUsername(username);
+    }
+
     public void deleteBlogpost(Long id, Principal principal) {
         String username = principal.getName();
         User user = userRepository.findByUserName(username);

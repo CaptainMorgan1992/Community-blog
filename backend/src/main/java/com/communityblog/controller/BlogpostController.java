@@ -3,6 +3,7 @@ package com.communityblog.controller;
 
 import com.communityblog.dto.BlogpostDto;
 import com.communityblog.model.Blogpost;
+import com.communityblog.model.User;
 import com.communityblog.service.BlogpostService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,12 @@ public class BlogpostController {
     public ResponseEntity<Blogpost> getBlogPost(@PathVariable Long id) {
         Blogpost blogpost = blogpostService.getBlogPostById(id);
         return new ResponseEntity<>(blogpost, HttpStatus.OK);
+    }
+
+    @GetMapping("/all/{username}")
+    public ResponseEntity<List<Blogpost>> findBlogpostByAuthor( @PathVariable String username){
+        List<Blogpost> blogposts = blogpostService.findBlogpostByAuthor(username);
+        return new ResponseEntity<>(blogposts, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
