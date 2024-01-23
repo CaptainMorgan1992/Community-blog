@@ -17,7 +17,6 @@ export const GlobalProvider = ({children}) =>  {
     const [postContent, setPostContent] = useState('');
     const [postCreated, setPostCreated] = useState(false);
 
-    //imports from database
 
     useEffect(() => {
         setValidateResponse(validateResponse);
@@ -38,7 +37,6 @@ export const GlobalProvider = ({children}) =>  {
 
     const submitLogin = async (username, password) => {
         try {
-            // Fetch CSRF token
             const response = await fetch("http://localhost:8080/api/login", {
                 method: 'POST',
                 headers: {
@@ -46,7 +44,7 @@ export const GlobalProvider = ({children}) =>  {
                     'X-CSRF-TOKEN': csrfToken,
                 },
                 body: JSON.stringify({ username, password }),
-                credentials: 'include'  // Include credentials in the login request
+                credentials: 'include'
             });
 
             setValidateResponse(response.ok)
@@ -181,15 +179,11 @@ export const GlobalProvider = ({children}) =>  {
             const response = await fetch('http://localhost:8080/api/blogpost/create', requestOptions);
 
             if (response.ok) {
-                // Handle success, e.g., clear input fields and provide visual feedback
                 setPostTitle('');
                 setPostContent('');
                 setPostCreated(true);
-                console.log('Blogpost created!');
-                // Hide the success message after a short delay (e.g., 2.5 seconds)
                 setTimeout(() => setPostCreated(false), 6000);
             } else {
-                // Handle failure, e.g., display an error message
                 console.error('Failed to create blog post');
             }
         } catch (error) {

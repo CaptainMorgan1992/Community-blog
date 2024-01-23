@@ -6,21 +6,19 @@ export default function CreatePost() {
 
     const handleTitleChange = (event) => {
         setPostTitle(event.target.value);
-        // Show the success message when typing in the input fields
         setPostCreated(false);
     };
 
     const handleContentChange = (event) => {
         setPostContent(event.target.value);
-        // Show the success message when typing in the input fields
         setPostCreated(false);
     };
 
     const calculateButtonColor = () => {
         if (postTitle && postContent) {
-            return "#007bff"; // Full color when both fields are filled
+            return "#007bff";
         } else {
-            return "rgba(0, 123, 255, 0.5)"; // Faded color when one or both fields are empty
+            return "rgba(0, 123, 255, 0.5)";
         }
     };
 
