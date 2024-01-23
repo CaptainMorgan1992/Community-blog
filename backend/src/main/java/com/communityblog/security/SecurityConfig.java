@@ -44,31 +44,22 @@ public class SecurityConfig {
                 .csrf((csrf) -> csrf
                        .ignoringRequestMatchers(
                                "/api/register",
-                               "/api/hello",
                                "/api/login",
                                "/api/home",
-                               "/api/blogpost",
+                               "/api/blogpost/all",
                                "/api/blogpost/{id}",
-                               "/api/blogpost/create",
-                               "/api/blogpost/delete/{id}",
-                               "/api/logout",
                                "/csrf")
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .authorizeHttpRequests((requests) -> requests
+                        .requestMatchers( "/api/blogpost/create", "/api/logout", "/api/blogpost/delete/{id}").authenticated()
                         .requestMatchers(
                                 "/api/blogpost/all",
                                 "/api/blogpost/{id}",
-                                "/api/blogpost/delete/{id}",
                                 "/api/register",
                                 "/api/login",
-                                "/api/logout",
-                                "/api/blogpost",
-                                "/api/blogpost/delete/{id}",
                                 "/csrf"
-                                ).permitAll()
-                        .requestMatchers( "/api/blogpost/create", "/api/blogpost/delete/{id}").hasRole("USER").anyRequest().authenticated());
-                //.formLogin(Customizer.withDefaults())
-        //.httpBasic(Customizer.withDefaults());
+                                ).permitAll());
+
         return http.build();
     }
 
