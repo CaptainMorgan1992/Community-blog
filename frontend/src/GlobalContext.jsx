@@ -7,6 +7,7 @@ const GlobalContext = createContext(null);
 export const GlobalProvider = ({children}) =>  {
 
     const [blogPosts, setBlogPosts] = useState([])
+    const [myPosts, setMyPosts] = useState([])
     const [validateResponse, setValidateResponse] = useState(false)
     const [individualPost, setIndividualPost] = useState(null);
     const [user, setUser] = useState(null);
@@ -55,6 +56,28 @@ export const GlobalProvider = ({children}) =>  {
 
             setValidateResponse(false);
             console.log(validateResponse)
+        }
+
+        catch (error) {
+            console.error(error);
+        }
+    }
+
+    const loadMyPosts = async () => {
+        try {
+            const csrfRes = await fetch("http://localhost:8080/csrf", { credentials: "include" });
+            const token = await csrfRes.json();
+
+            const response = await fetch("http://localhost:8080/api/blogpost/all/{username}", {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN' : token.token
+                },
+                credentials: 'include' });
+
+            setValidateResponse(false);
+            const result = await response.json();
+            setBlogPosts(result);
         }
 
         catch (error) {
@@ -143,6 +166,9 @@ export const GlobalProvider = ({children}) =>  {
                 validateResponse,
                 handleLogout,
                 registerUser,
+                myPosts,
+                setMyPosts,
+                loadMyPosts
             }}
         >
 

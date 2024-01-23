@@ -28,6 +28,7 @@ const router = createBrowserRouter(
             <Route path={'logout'} element={<LogoutPage/>}/>
             <Route path={'register'} element={<RegisterPage />} />
             <Route path={'allPosts'} element={<AllBlogPostsPage />} />
+            <Route path={'myPosts/{username}'} element = {<MyPostsPage/>} />
             <Route path={"blog/:id"} element={<IndividualPostPage />} />
             <Route path={"testNewPost"} element={<TestNewPost />} />
         </Route>

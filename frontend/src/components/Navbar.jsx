@@ -18,7 +18,7 @@ export default function Navbar() {
                     <Link to={'logout'}>
                         <button onClick={handleLogout}>Logout</button>
                     </Link>
-                    <Link to={'myPosts'}>
+                    <Link to={'myPosts/{username}'}>
                         <button>My posts</button>
                     </Link>
                     <Link to={'testNewPost'}>
